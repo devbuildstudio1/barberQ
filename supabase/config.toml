@@ -291,11 +291,13 @@ max_frequency = "5s"
 
 # Configure one of the supported SMS providers: `twilio`, `twilio_verify`, `messagebird`, `textlocal`, `vonage`.
 [auth.sms.twilio]
-enabled = false
-account_sid = ""
-message_service_sid = ""
-# DO NOT commit your Twilio auth token to git. Use environment variable substitution instead:
-auth_token = "env(SUPABASE_AUTH_SMS_TWILIO_AUTH_TOKEN)"
+# Local dev only: enabling a provider is required for phone login. With
+# [auth.sms.test_otp] below, no real SMS is sent for the listed numbers.
+enabled = true
+account_sid = "local-dev"
+message_service_sid = "local-dev"
+# DO NOT commit real secrets. Use `auth_token = "env(TWILIO_AUTH_TOKEN)"` in production.
+auth_token = "local-dev"
 
 # Multi-factor-authentication is available to Supabase Pro plan.
 [auth.mfa]
