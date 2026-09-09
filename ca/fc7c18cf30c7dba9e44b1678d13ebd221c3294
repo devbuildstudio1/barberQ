@@ -1,0 +1,35 @@
+supabase/config.toml
+  s_8b9267972ee537::t_1a4a4462d2884a 294-300
+src/types/database.ts
+  s_8b9267972ee537::t_8bf4bfb8648e90 1-7,11-914,916-1100
+supabase/migrations/20260909000003_rls.sql
+  s_8b9267972ee537::t_dd5f3c5bec7c7b 1-152
+supabase/seed.sql
+  s_8b9267972ee537::t_dd5f3c5bec7c7b 1-153,155-242
+  s_8b9267972ee537::t_ba6db53253dcea 154
+supabase/migrations/20260909000001_schema.sql
+  s_8b9267972ee537::t_bac8c1332e956c 276-277,282
+  s_8b9267972ee537::t_13aa10dca75aeb 1-275,278-281,283-350
+supabase/migrations/20260909000002_functions.sql
+  s_8b9267972ee537::t_bac8c1332e956c 51-52,233,484,751,810-811
+  s_8b9267972ee537::t_672a8525dbe283 36-39,53-54
+  s_8b9267972ee537::t_196ca0d3a2fd28 1-35,40-50,55-232,234-483,485-750,752-809,812-827
+supabase/migrations/20260909000004_storage_realtime.sql
+  s_8b9267972ee537::t_dd5f3c5bec7c7b 1-47
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "cafc7c18cf30c7dba9e44b1678d13ebd221c3294",
+  "prompts": {},
+  "sessions": {
+    "s_8b9267972ee537": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "aa8e1de2-c571-43da-911c-7e24b31d7125",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "fayiz <fayiz.p@icliniq.com>"
+    }
+  }
+}
