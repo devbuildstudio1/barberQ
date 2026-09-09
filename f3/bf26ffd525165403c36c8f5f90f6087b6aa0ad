@@ -1,0 +1,86 @@
+src/lib/validation/parse.ts
+  s_8b9267972ee537::t_42588140616208 1-22
+src/components/forms/image-upload.tsx
+  s_8b9267972ee537::t_113dc5c89e6d78 1-108
+src/lib/validation/common.ts
+  s_8b9267972ee537::t_42588140616208 1-47
+src/lib/auth/guards.ts
+  s_8b9267972ee537::t_e5db39619065b6 1-49
+src/components/forms/owner-signup-form.tsx
+  s_8b9267972ee537::t_113dc5c89e6d78 1-51
+src/lib/auth/actions.ts
+  s_8b9267972ee537::t_e5db39619065b6 1-166
+src/lib/auth/profile.ts
+  s_8b9267972ee537::t_e5db39619065b6 1-17
+src/components/forms/email-login-form.tsx
+  s_8b9267972ee537::t_113dc5c89e6d78 1-44
+src/lib/validation/index.ts
+  s_8b9267972ee537::t_42588140616208 1-4
+src/app/(customer)/profile/page.tsx
+  s_8b9267972ee537::t_90b9706d6db137 1-21
+next.config.ts
+  s_8b9267972ee537::t_df4adb46e05e67 3-10,12-31
+src/components/forms/auth-card.tsx
+  s_8b9267972ee537::t_113dc5c89e6d78 1-13
+src/components/forms/phone-login-form.tsx
+  s_8b9267972ee537::t_dfcf244733d433 25
+  s_8b9267972ee537::t_113dc5c89e6d78 1-24,26-49
+src/app/(customer)/profile/profile-form.tsx
+  s_8b9267972ee537::t_90b9706d6db137 1-57
+src/app/(auth)/login/login-tabs.tsx
+  s_8b9267972ee537::t_90b9706d6db137 1-25
+src/lib/api/response.ts
+  s_8b9267972ee537::t_dfcf244733d433 1-35
+src/hooks/use-action.ts
+  s_8b9267972ee537::t_76fa4c7688178b 28-30
+  s_8b9267972ee537::t_113dc5c89e6d78 1-27,31-32,34-44,46-58
+  s_8b9267972ee537::t_dfcf244733d433 33,45
+src/app/api/auth/register/route.ts
+  s_8b9267972ee537::t_90b9706d6db137 1-15
+src/components/forms/otp-form.tsx
+  s_8b9267972ee537::t_113dc5c89e6d78 1-81
+src/lib/validation/queue.ts
+  s_8b9267972ee537::t_42588140616208 1-39
+src/app/api/auth/login/route.ts
+  s_8b9267972ee537::t_90b9706d6db137 1-17
+src/lib/validation/shop.ts
+  s_8b9267972ee537::t_42588140616208 1-52
+src/components/shop/shop-register-form.tsx
+  s_8b9267972ee537::t_90b9706d6db137 1-5
+src/app/(auth)/shop/register/page.tsx
+  s_8b9267972ee537::t_90b9706d6db137 1-77
+src/lib/utils/rate-limit.ts
+  s_8b9267972ee537::t_42588140616208 1-32
+src/app/api/users/me/route.ts
+  s_8b9267972ee537::t_90b9706d6db137 1-15
+src/app/(auth)/shop/login/page.tsx
+  s_8b9267972ee537::t_90b9706d6db137 1-32
+src/app/(auth)/register/page.tsx
+  s_8b9267972ee537::t_90b9706d6db137 1-30
+src/lib/validation/auth.ts
+  s_8b9267972ee537::t_42588140616208 1-42
+src/app/(auth)/verify/page.tsx
+  s_8b9267972ee537::t_90b9706d6db137 1-26
+src/app/(auth)/admin/login/page.tsx
+  s_8b9267972ee537::t_90b9706d6db137 1-18
+src/app/(auth)/login/page.tsx
+  s_8b9267972ee537::t_90b9706d6db137 1-26
+src/app/api/auth/logout/route.ts
+  s_8b9267972ee537::t_90b9706d6db137 1-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.2",
+  "base_commit_sha": "f3bf26ffd525165403c36c8f5f90f6087b6aa0ad",
+  "prompts": {},
+  "sessions": {
+    "s_8b9267972ee537": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "aa8e1de2-c571-43da-911c-7e24b31d7125",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "fayiz <fayiz.p@icliniq.com>"
+    }
+  }
+}
