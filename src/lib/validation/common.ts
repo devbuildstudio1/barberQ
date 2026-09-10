@@ -26,12 +26,18 @@ export const emailSchema = z
   .max(254)
   .pipe(z.email("Enter a valid email address"));
 
+/**
+ * Display name for a person. Letters, marks, digits and a few separators are
+ * allowed (real staff names include things like "Ravi 2"); markup characters
+ * are not, so a name can never carry a tag into the UI.
+ */
 export const nameSchema = z
   .string()
   .trim()
   .min(2, "Name must be at least 2 characters")
   .max(80, "Name is too long")
-  .regex(/^[\p{L}\p{M} .'-]+$/u, "Name contains invalid characters");
+  .regex(/^[\p{L}\p{M}\p{N} .,'&()-]+$/u, "Name contains invalid characters")
+  .refine((v) => /[\p{L}]/u.test(v), "Name must contain letters");
 
 export const uuidSchema = z.uuid("Invalid id");
 

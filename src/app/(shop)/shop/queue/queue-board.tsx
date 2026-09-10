@@ -240,7 +240,13 @@ export function QueueBoardView({ shop, initialBoard }: Props) {
                   </Badge>
                 ) : null}
                 <div className="flex gap-1">
-                  <Button variant="ghost" size="sm" disabled={busy} onClick={() => setConfirm({ kind: "no_show", entry: e })}>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    disabled={busy}
+                    aria-label={`Mark token ${e.token_prefix}-${e.token_number} as no show`}
+                    onClick={() => setConfirm({ kind: "no_show", entry: e })}
+                  >
                     <UserX /> <span className="hidden sm:inline">No show</span>
                   </Button>
                   <Button variant="ghost" size="icon-sm" aria-label={`Cancel token ${e.token_prefix}-${e.token_number}`} disabled={busy} onClick={() => setConfirm({ kind: "cancel", entry: e })}>

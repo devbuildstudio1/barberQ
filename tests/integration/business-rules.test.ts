@@ -25,7 +25,7 @@ describe("business rules", () => {
     await admin.from("queues").update({ last_token_number: 0, current_token: null }).eq("shop_id", shop.shopId);
   }
 
-  async function setShop(patch: Record<string, unknown>) {
+  async function setShop(patch: { is_open?: boolean; opening_time?: string; closing_time?: string }) {
     await admin.from("shops").update(patch).eq("id", shop.shopId);
   }
 

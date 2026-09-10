@@ -47,8 +47,18 @@ describe("nameSchema", () => {
     expect(nameSchema.safeParse("R").success).toBe(false);
   });
 
+  it("allows digits so staff names like \"Ravi 2\" work", () => {
+    expect(nameSchema.safeParse("Ravi 2").success).toBe(true);
+    expect(nameSchema.safeParse("Cut & Style").success).toBe(true);
+  });
+
   it("rejects names with markup", () => {
     expect(nameSchema.safeParse("<script>alert(1)</script>").success).toBe(false);
+    expect(nameSchema.safeParse("Ravi <b>").success).toBe(false);
+  });
+
+  it("rejects a name with no letters at all", () => {
+    expect(nameSchema.safeParse("12345").success).toBe(false);
   });
 });
 

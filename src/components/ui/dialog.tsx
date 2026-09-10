@@ -49,11 +49,16 @@ export function Dialog({ open, onClose, title, description, children, footer, si
         if (e.target === ref.current) onClose();
       }}
       className={cn(
-        "fixed inset-0 m-auto w-[calc(100%-2rem)] rounded-xl border border-border bg-surface p-0 text-ink-950 shadow-pop open:animate-fade-up",
+        // A capped height with an internally scrolling body keeps long forms
+        // usable on small screens without the footer sliding out of reach.
+        // The layout keys off the [open] attribute rather than the :open
+        // pseudo-class, which older browsers don't match on <dialog> — without
+        // it the flex column silently degrades and the body overlaps the footer.
+        "fixed inset-0 m-auto max-h-[calc(100svh-2rem)] w-[calc(100%-2rem)] flex-col overflow-hidden rounded-xl border border-border bg-surface p-0 text-ink-950 shadow-pop [&[open]]:flex [&[open]]:animate-fade-up",
         sizes[size],
       )}
     >
-      <div className="flex items-start justify-between gap-4 p-5 pb-0">
+      <div className="flex shrink-0 items-start justify-between gap-4 p-5 pb-0">
         <div>
           <h2 id={titleId} className="text-lg font-semibold">
             {title}
@@ -68,8 +73,10 @@ export function Dialog({ open, onClose, title, description, children, footer, si
           <X />
         </Button>
       </div>
-      {children ? <div className="p-5">{children}</div> : <div className="h-5" />}
-      {footer ? <div className="flex flex-col-reverse gap-2 border-t border-border p-4 sm:flex-row sm:justify-end">{footer}</div> : null}
+      {children ? <div className="min-h-0 flex-1 overflow-y-auto p-5">{children}</div> : <div className="h-5 shrink-0" />}
+      {footer ? (
+        <div className="flex shrink-0 flex-col-reverse gap-2 border-t border-border p-4 sm:flex-row sm:justify-end">{footer}</div>
+      ) : null}
     </dialog>
   );
 }

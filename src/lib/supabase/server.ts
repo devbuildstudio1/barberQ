@@ -3,7 +3,7 @@ import "server-only";
 import { cookies } from "next/headers";
 import { createServerClient } from "@supabase/ssr";
 import type { SupabaseClient } from "@supabase/supabase-js";
-import { publicEnv, serverEnv } from "@/lib/env";
+import { publicEnv } from "@/lib/env";
 import type { Database } from "@/types/database";
 
 /**
@@ -30,17 +30,8 @@ export async function createClient(): Promise<SupabaseClient<Database>> {
   });
 }
 
-/**
- * Privileged client that bypasses RLS. SERVER ONLY. Use sparingly and only
- * after the caller's authorization has been verified (e.g. admin maintenance).
- */
-export function createAdminClient(): SupabaseClient<Database> {
-  const env = serverEnv();
-  if (!env.SUPABASE_SERVICE_ROLE_KEY) {
-    throw new Error("SUPABASE_SERVICE_ROLE_KEY is not configured");
-  }
-  return createServerClient<Database>(env.NEXT_PUBLIC_SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY, {
-    cookies: { getAll: () => [], setAll: () => {} },
-    auth: { persistSession: false, autoRefreshToken: false },
-  });
-}
+// There is deliberately no service-role client here. Every runtime query runs
+// as the signed-in user so Row Level Security is always in force; privileged
+// work (seeding, tests, maintenance) uses the Supabase CLI or a standalone
+// script instead. Keep it that way: an RLS bypass in request code is one
+// missing ownership check away from a data leak.

@@ -48,7 +48,9 @@ export function HeroSearch() {
         aria-label={geo.location ? "Using your current location" : "Use my location"}
       >
         <LocateFixed className={geo.location ? "text-brand-600" : undefined} />
-        <span className="sm:hidden lg:inline">{geo.location ? "Near me" : "Use location"}</span>
+        <span className="sm:hidden lg:inline" aria-hidden>
+          {geo.location ? "Near me" : "Use location"}
+        </span>
       </Button>
       <Button type="submit" size="lg" className="sm:px-8">
         Find a Barber

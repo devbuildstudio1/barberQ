@@ -48,12 +48,24 @@ export function ShopStatusControls({ shopId, isOpen, queuePaused, compact, class
             {isOpen ? "Open" : "Closed"}
           </Badge>
           {isOpen ? (
-            <Button size="sm" variant={queuePaused ? "primary" : "outline"} loading={pauseAction.pending} onClick={() => pauseAction.run({ shop_id: shopId, paused: !queuePaused })}>
+            <Button
+              size="sm"
+              variant={queuePaused ? "primary" : "outline"}
+              loading={pauseAction.pending}
+              aria-label={queuePaused ? "Resume queue" : "Pause queue"}
+              onClick={() => pauseAction.run({ shop_id: shopId, paused: !queuePaused })}
+            >
               {queuePaused ? <Play /> : <Pause />}
               <span className="hidden sm:inline">{queuePaused ? "Resume queue" : "Pause queue"}</span>
             </Button>
           ) : null}
-          <Button size="sm" variant={isOpen ? "outline" : "primary"} loading={openAction.pending} onClick={toggleOpen}>
+          <Button
+            size="sm"
+            variant={isOpen ? "outline" : "primary"}
+            loading={openAction.pending}
+            aria-label={isOpen ? "Close shop" : "Open shop"}
+            onClick={toggleOpen}
+          >
             {isOpen ? <DoorClosed /> : <DoorOpen />}
             <span className="hidden sm:inline">{isOpen ? "Close shop" : "Open shop"}</span>
           </Button>

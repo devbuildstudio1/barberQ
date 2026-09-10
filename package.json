@@ -17,7 +17,7 @@
     "db:reset": "supabase db reset",
     "db:types": "supabase gen types typescript --local --schema public > src/types/database.ts",
     "db:seed": "tsx supabase/seed/seed.ts",
-    "check": "pnpm typecheck && pnpm lint && pnpm test:unit"
+    "check": "pnpm typecheck && pnpm lint && pnpm test"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
