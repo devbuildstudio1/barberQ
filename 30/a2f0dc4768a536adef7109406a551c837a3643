@@ -1,0 +1,77 @@
+src/app/api/shops/[id]/route.ts
+  s_8b9267972ee537::t_6592068159946a 1-32
+src/app/(shop)/shop/layout.tsx
+  s_8b9267972ee537::t_bc9e65708ad3f5 1-20
+src/app/(shop)/shop/services/services-manager.tsx
+  s_8b9267972ee537::t_a5542aa9b646cc 1-214
+src/app/api/services/[id]/route.ts
+  s_8b9267972ee537::t_6592068159946a 1-15
+src/app/api/shops/[id]/queue/route.ts
+  s_8b9267972ee537::t_60a072adae7ab4 1-26
+src/app/api/shops/[id]/services/route.ts
+  s_8b9267972ee537::t_6592068159946a 1-20
+src/app/api/queue/[id]/no-show/route.ts
+  s_8b9267972ee537::t_60a072adae7ab4 1-10
+src/app/api/queue/[id]/complete/route.ts
+  s_8b9267972ee537::t_60a072adae7ab4 1-10
+src/app/api/queue/[id]/cancel/route.ts
+  s_8b9267972ee537::t_60a072adae7ab4 1-10
+src/app/api/shops/route.ts
+  s_8b9267972ee537::t_6592068159946a 1-20
+src/app/api/queue/[id]/call/route.ts
+  s_8b9267972ee537::t_60a072adae7ab4 1-10
+src/app/api/queue/[id]/start/route.ts
+  s_8b9267972ee537::t_60a072adae7ab4 1-10
+src/app/api/shops/[id]/queue/join/route.ts
+  s_8b9267972ee537::t_60a072adae7ab4 1-11
+src/app/api/barbers/[id]/route.ts
+  s_8b9267972ee537::t_6592068159946a 1-15
+src/lib/shops/actions.ts
+  s_8b9267972ee537::t_0fa2fc1e0f6412 196-203
+  s_8b9267972ee537::t_33d8c67fbd67e7 77-84
+  s_8b9267972ee537::t_9f4778dfe5a60c 1-76,85-195,204-311
+src/app/(shop)/shop/barbers/barbers-manager.tsx
+  s_8b9267972ee537::t_18b3f71f448385 1-234
+src/components/shop/shop-register-form.tsx
+  s_8b9267972ee537::t_f0f9d7f5b210d4 3-131
+src/app/(shop)/shop/dashboard/page.tsx
+  s_8b9267972ee537::t_5c3e7a060ff843 1-132
+src/app/(shop)/shop/barbers/page.tsx
+  s_8b9267972ee537::t_89f4798ff5c7e0 1-23
+src/app/(shop)/shop/settings/page.tsx
+  s_8b9267972ee537::t_da174e29d1e111 1-25
+src/app/api/shops/[id]/barbers/route.ts
+  s_8b9267972ee537::t_6592068159946a 1-20
+src/app/api/queue/[id]/route.ts
+  s_8b9267972ee537::t_60a072adae7ab4 1-8
+src/lib/api/unwrap.ts
+  s_8b9267972ee537::t_6592068159946a 1-9
+src/components/shop/shop-status-controls.tsx
+  s_8b9267972ee537::t_ae5485ff843cfe 1-142
+src/components/shop/location-picker.tsx
+  s_8b9267972ee537::t_53f6c019288903 1-102
+src/app/(shop)/shop/settings/shop-settings-form.tsx
+  s_8b9267972ee537::t_365b4499162615 78
+  s_8b9267972ee537::t_329da541cb8657 1-77,79-162
+src/app/(shop)/shop/services/page.tsx
+  s_8b9267972ee537::t_e2c311d0cb5b77 1-23
+src/components/shop/shop-shell.tsx
+  s_8b9267972ee537::t_b3af5f9fbc269b 1-4,6-57
+  s_8b9267972ee537::t_b5e272d2f3b985 5
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "30a2f0dc4768a536adef7109406a551c837a3643",
+  "prompts": {},
+  "sessions": {
+    "s_8b9267972ee537": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "aa8e1de2-c571-43da-911c-7e24b31d7125",
+        "model": "claude-opus-5"
+      },
+      "human_author": "fayiz <fayiz.p@icliniq.com>"
+    }
+  }
+}
