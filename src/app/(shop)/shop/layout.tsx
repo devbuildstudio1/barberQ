@@ -7,7 +7,11 @@ export const dynamic = "force-dynamic";
 export default async function ShopLayout({ children }: { children: React.ReactNode }) {
   const profile = await requireRole(["shop_owner", "admin"], "/shop/login");
   const shop = await getOwnedShop();
-  if (!shop) redirect("/shop/register");
+  if (!shop) {
+    // Admins can reach shop routes but own no shop; send them to their console
+    // rather than into the owner registration flow.
+    redirect(profile.role === "admin" ? "/admin/dashboard" : "/shop/register");
+  }
 
   return (
     <ShopShell

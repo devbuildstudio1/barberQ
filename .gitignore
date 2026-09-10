@@ -43,3 +43,6 @@ next-env.d.ts
 tests/e2e/.auth/
 test-results/
 playwright-report/
+
+# stray local screenshots
+/*.png
