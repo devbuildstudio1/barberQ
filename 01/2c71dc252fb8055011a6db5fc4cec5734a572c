@@ -1,0 +1,34 @@
+src/lib/supabase/realtime.ts
+  s_8b9267972ee537::t_233b350121b758 20,36-37,41-43,48,50-52,67,80,86-87,91,95,97,99,111,125,131-136,138-175
+  s_8b9267972ee537::t_76b71976c8937b 1-19,21-35,38-40,44-47,49,53-66,68-79,81-85,88-90,92-94,96,98,100-110,112-124,126-130,137,176
+src/app/(shop)/shop/queue/queue-board.tsx
+  s_8b9267972ee537::t_6d58593d9fbbb4 6
+  s_8b9267972ee537::t_44793c8db9cf91 1-5,7-318
+src/lib/supabase/client.ts
+  s_8b9267972ee537::t_b8dd4ea48c65a7 15-18
+src/app/(shop)/shop/queue/page.tsx
+  s_8b9267972ee537::t_a7de4c6e330a80 1-31
+src/components/queue/live-dot.tsx
+  s_8b9267972ee537::t_c1651ab278f30e 2
+src/hooks/use-realtime-queue.ts
+  s_8b9267972ee537::t_2ba78b6ad1081a 61,87,116,149
+  s_8b9267972ee537::t_b048c775aa57cf 129-148,150-161
+  s_8b9267972ee537::t_026b15d1ddf137 6,9,13-15,19,33-35,37-38
+  s_8b9267972ee537::t_58dbb66c2b5f57 7
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "012c71dc252fb8055011a6db5fc4cec5734a572c",
+  "prompts": {},
+  "sessions": {
+    "s_8b9267972ee537": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "aa8e1de2-c571-43da-911c-7e24b31d7125",
+        "model": "claude-opus-5"
+      },
+      "human_author": "fayiz <fayiz.p@icliniq.com>"
+    }
+  }
+}
