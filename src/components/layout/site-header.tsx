@@ -1,9 +1,8 @@
 import Link from "next/link";
-import { Bell } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { buttonVariants } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
-import { getSessionUser } from "@/lib/auth/session";
+import { getCurrentProfile } from "@/lib/auth/profile";
+import { NotificationBell } from "./notification-bell";
 import { HeaderMenu } from "./header-menu";
 
 const NAV = [
@@ -13,7 +12,7 @@ const NAV = [
 ];
 
 export async function SiteHeader() {
-  const user = await getSessionUser();
+  const profile = await getCurrentProfile();
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-surface/90 backdrop-blur supports-[backdrop-filter]:bg-surface/75">
       <div className="container-page flex h-16 items-center justify-between gap-4">
@@ -30,16 +29,14 @@ export async function SiteHeader() {
           ))}
         </nav>
         <div className="flex items-center gap-2">
-          {user ? (
+          {profile ? (
             <>
-              <Link
-                href="/notifications"
-                aria-label="Notifications"
-                className={cn(buttonVariants({ variant: "ghost", size: "icon" }), "relative")}
-              >
-                <Bell />
-              </Link>
-              <HeaderMenu user={user} />
+              <NotificationBell userId={profile.id} />
+              <HeaderMenu
+                user={{ id: profile.id, role: profile.role, email: profile.email, phone: profile.phone }}
+                name={profile.name}
+                image={profile.profile_image}
+              />
             </>
           ) : (
             <>
