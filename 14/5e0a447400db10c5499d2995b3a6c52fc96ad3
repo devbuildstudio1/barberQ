@@ -1,0 +1,38 @@
+src/app/api/notifications/[id]/route.ts
+  s_8b9267972ee537::t_441f24495060c5 1-13
+src/components/layout/site-header.tsx
+  s_8b9267972ee537::t_27497a6405640d 4-5,15,32,34-39
+src/components/customer/notification-item.tsx
+  s_8b9267972ee537::t_0cdb6d0adc4aaa 1-80
+src/app/(customer)/notifications/notifications-list.tsx
+  s_8b9267972ee537::t_441f24495060c5 1-73
+src/hooks/use-notifications.ts
+  s_8b9267972ee537::t_0c73fb183e3ca7 1-40
+src/lib/notifications/actions.ts
+  s_8b9267972ee537::t_fa2733ba518478 1-4,6-14,20,23-51,57,59-64
+  s_8b9267972ee537::t_c9589d4853b2b9 5,15-19,21-22,52-56,58
+src/app/api/notifications/read-all/route.ts
+  s_8b9267972ee537::t_441f24495060c5 1-5
+src/app/api/notifications/route.ts
+  s_8b9267972ee537::t_441f24495060c5 1-17
+src/app/(customer)/notifications/page.tsx
+  s_8b9267972ee537::t_441f24495060c5 1-21
+src/components/layout/notification-bell.tsx
+  s_8b9267972ee537::t_da77cdde673bd2 1-28
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "145e0a447400db10c5499d2995b3a6c52fc96ad3",
+  "prompts": {},
+  "sessions": {
+    "s_8b9267972ee537": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "aa8e1de2-c571-43da-911c-7e24b31d7125",
+        "model": "claude-opus-5"
+      },
+      "human_author": "fayiz <fayiz.p@icliniq.com>"
+    }
+  }
+}
