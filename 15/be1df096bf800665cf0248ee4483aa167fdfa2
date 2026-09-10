@@ -1,0 +1,88 @@
+src/app/(customer)/shops/page.tsx
+  s_8b9267972ee537::t_d06f8a8e914d92 1-61
+src/lib/recommendations/score.ts
+  s_8b9267972ee537::t_98088ca8278b9f 1-120
+src/lib/shops/queries.ts
+  s_8b9267972ee537::t_3c70017070e3f2 8,24-33,38,56,62
+  s_8b9267972ee537::t_78ee85f74eb2de 44-45,47
+  s_8b9267972ee537::t_98088ca8278b9f 1-7,9-23,34-37,39-43,46,48-55,57-61,63-93
+src/components/customer/barber-card.tsx
+  s_8b9267972ee537::t_0c4607cf2a1012 1-53
+src/app/(customer)/shops/shops-toolbar.tsx
+  s_8b9267972ee537::t_78b634b6e49ae7 1-291
+src/types/database.ts
+  s_8b9267972ee537::t_ea94ec0211ff7f 663-666
+src/types/domain.ts
+  s_8b9267972ee537::t_98088ca8278b9f 1-155
+src/components/queue/live-dot.tsx
+  s_8b9267972ee537::t_15555f643fe922 1-27
+src/app/(customer)/my-queue/review-prompt.tsx
+  s_8b9267972ee537::t_114f7c3e458147 1-4,6-28,30-75
+  s_8b9267972ee537::t_8b0762f3988de6 5
+  s_8b9267972ee537::t_1686e7d8369f91 29
+src/app/(customer)/shops/[id]/not-found.tsx
+  s_8b9267972ee537::t_b70067f338355a 1-22
+src/app/(customer)/shops/[id]/shop-live-queue.tsx
+  s_8b9267972ee537::t_d6f0434416d465 1-60
+src/app/(customer)/shops/[id]/page.tsx
+  s_8b9267972ee537::t_37507da2dacef8 1-239
+src/components/customer/service-card.tsx
+  s_8b9267972ee537::t_0c4607cf2a1012 1-40
+src/components/maps/map-view.tsx
+  s_8b9267972ee537::t_0c4607cf2a1012 1-67
+src/components/customer/queue-indicator.tsx
+  s_8b9267972ee537::t_0c4607cf2a1012 1-96
+src/hooks/use-geolocation.ts
+  s_8b9267972ee537::t_167cd469619906 7,14-16,19-46,56,64,67,72,75,86,98
+  s_8b9267972ee537::t_0c4607cf2a1012 1-6,8-13,17-18,47-55,57-63,65-66,68-71,73-74,76-85,87-97,99-115
+src/app/(customer)/my-queue/page.tsx
+  s_8b9267972ee537::t_ef9268cdc031b0 1-72
+src/lib/utils/geo.ts
+  s_8b9267972ee537::t_0c4607cf2a1012 1-26
+src/app/(customer)/shops/[id]/loading.tsx
+  s_8b9267972ee537::t_857659feff2e15 1-31
+src/app/(marketing)/hero-search.tsx
+  s_8b9267972ee537::t_ea94ec0211ff7f 1-58
+src/lib/queue/actions.ts
+  s_8b9267972ee537::t_3c70017070e3f2 1-140
+src/app/(customer)/shops/[id]/join/page.tsx
+  s_8b9267972ee537::t_edacfca3a6c3bc 1-79
+supabase/migrations/20260909000005_reviews_read.sql
+  s_8b9267972ee537::t_0c4607cf2a1012 1-22
+src/app/(customer)/shops/[id]/join/join-queue-form.tsx
+  s_8b9267972ee537::t_95e5a1f05342da 1-207
+src/hooks/use-realtime-queue.ts
+  s_8b9267972ee537::t_f2ff6d5cca0a41 19
+  s_8b9267972ee537::t_8b03610705a8e4 1-18,20-140
+src/app/(customer)/my-queue/live-queue.tsx
+  s_8b9267972ee537::t_583f50f37815a8 216-218
+  s_8b9267972ee537::t_f03a64e8f06f14 1-215,219-227
+src/app/(marketing)/page.tsx
+  s_8b9267972ee537::t_ea94ec0211ff7f 2-3,5-17,20-153,157-197
+src/app/(customer)/shops/loading.tsx
+  s_8b9267972ee537::t_e697253edb6aaa 1-17
+src/components/customer/shop-card.tsx
+  s_8b9267972ee537::t_0c4607cf2a1012 1-130
+src/lib/queue/queries.ts
+  s_8b9267972ee537::t_3c70017070e3f2 1-40
+supabase/config.toml
+  s_8b9267972ee537::t_5e6ff37ace4b36 274-275
+supabase/seed.sql
+  s_8b9267972ee537::t_a30e62418ffc77 9,57-58,222-223,225-226,235-239
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "15be1df096bf800665cf0248ee4483aa167fdfa2",
+  "prompts": {},
+  "sessions": {
+    "s_8b9267972ee537": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "aa8e1de2-c571-43da-911c-7e24b31d7125",
+        "model": "claude-fable-5-1"
+      },
+      "human_author": "fayiz <fayiz.p@icliniq.com>"
+    }
+  }
+}
