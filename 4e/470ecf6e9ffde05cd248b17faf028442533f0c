@@ -1,0 +1,75 @@
+playwright.config.ts
+  s_8b9267972ee537::t_14ac1cfccbaf05 1-16,20-21,25-34
+  s_8b9267972ee537::t_8768c54bb61882 22-24
+  s_8b9267972ee537::t_42a873dc86772f 17-19
+package.json
+  s_8b9267972ee537::t_14479a9334d1a2 20
+src/app/robots.ts
+  s_8b9267972ee537::t_0e435b19aa63dd 1-17
+src/lib/validation/common.ts
+  s_8b9267972ee537::t_269b31fbfc52da 29-33,39-40
+.env.example
+  s_8b9267972ee537::t_cccc58f7a52476 6-9
+src/lib/supabase/server.ts
+  s_8b9267972ee537::t_cccc58f7a52476 6,33-37
+tests/e2e/fixtures.ts
+  s_8b9267972ee537::t_3bae23ce42b5f8 1-14,22-50,62-67,72-73,79
+  s_8b9267972ee537::t_99d3d426acee86 15-21,51-61,68-71,74-78
+src/app/globals.css
+  s_8b9267972ee537::t_42a873dc86772f 125-136
+tests/e2e/shop-and-admin.spec.ts
+  s_8b9267972ee537::t_49949a6e283f6b 1,3-4,7-8,10-11,14-16,18,36,40,43,47,49-56,58-63,66-73,80-90,125,130,132,134,140-142,146-161,164,166-171,190-191
+  s_8b9267972ee537::t_259f6d786e0d4a 25,28,31,48
+  s_8b9267972ee537::t_5ef83d721b5df2 45,98-99,173-176
+  s_8b9267972ee537::t_52e874428b9f2b 109
+  s_8b9267972ee537::t_2b2b44dc597859 2,5-6,12-13,17,19-24,26-27,29-30,32-35,37-39,41-42,44,46,57,64-65,74,77-79,91-97,100-101,107-108,110-124,126-129,131,133,135-139,143-145,162-163,165,172,177-189
+  s_8b9267972ee537::t_4c23a5c9714dc2 102-106
+  s_8b9267972ee537::t_24b357c417a6f8 9
+  s_8b9267972ee537::t_b8d3e0157f4e7d 75-76
+CLAUDE.md
+  s_8b9267972ee537::t_14479a9334d1a2 1-26
+tests/e2e/customer-journey.spec.ts
+  s_8b9267972ee537::t_0b139a70f0671f 1,3-4,7-11,13-14,16-22,25-27,29-32,34-40,42-44,47,50-52,54-65,76,87-88,103,115-117
+  s_8b9267972ee537::t_9672010ebefa27 2,5-6,12,15,23,28,33,41,45,53,66-75,77-86,89-91,93-102,104-114
+  s_8b9267972ee537::t_259f6d786e0d4a 24,46,48-49,92
+src/app/icon.svg
+  s_8b9267972ee537::t_0e435b19aa63dd 1-9
+src/app/(shop)/shop/queue/queue-board.tsx
+  s_8b9267972ee537::t_5ef83d721b5df2 243-249
+src/app/(marketing)/hero-search.tsx
+  s_8b9267972ee537::t_5ef83d721b5df2 51-53
+src/app/sitemap.ts
+  s_8b9267972ee537::t_0e435b19aa63dd 1-32
+tests/integration/business-rules.test.ts
+  s_8b9267972ee537::t_df62cfdd59f82d 28
+src/components/shop/shop-status-controls.tsx
+  s_8b9267972ee537::t_5ef83d721b5df2 51-57,62-68
+tests/e2e/auth.setup.ts
+  s_8b9267972ee537::t_7a0eb7dff9b7b9 1,6-9,11,13-18,20,26,32
+  s_8b9267972ee537::t_31ca293154ab34 2-5,10,12,19,21-25,27-31,33-35
+src/components/ui/dialog.tsx
+  s_8b9267972ee537::t_a69e81d464b041 52-53,61,76-79
+  s_8b9267972ee537::t_b1b03c3d5aff9b 54-57
+tests/unit/validation.test.ts
+  s_8b9267972ee537::t_9bad36876c5485 50-54,57-61
+.gitignore
+  s_8b9267972ee537::t_8768c54bb61882 43-45
+README.md
+  s_8b9267972ee537::t_22fddd7ef31c70 1,3-5,7-12,15-18,22-153,155-166,168,170,172,174-180,182-183,185,187,189-191
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "4e470ecf6e9ffde05cd248b17faf028442533f0c",
+  "prompts": {},
+  "sessions": {
+    "s_8b9267972ee537": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "aa8e1de2-c571-43da-911c-7e24b31d7125",
+        "model": "claude-opus-5"
+      },
+      "human_author": "fayiz <fayiz.p@icliniq.com>"
+    }
+  }
+}
