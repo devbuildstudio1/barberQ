@@ -1,15 +1,30 @@
 import { z } from "zod";
 
-/** E.164 phone. Accepts Indian 10-digit numbers and normalises to +91XXXXXXXXXX. */
+/**
+ * E.164 phone number. A bare 10-digit input is treated as an Indian mobile and
+ * normalised to +91XXXXXXXXXX; anything else must carry an explicit country
+ * code, so a mistyped local number can't silently become a foreign one.
+ */
 export const phoneSchema = z
   .string()
   .trim()
   .min(8, "Enter a valid phone number")
   .transform((raw) => raw.replace(/[\s\-()]/g, ""))
-  .transform((v) => (/^[6-9]\d{9}$/.test(v) ? `+91${v}` : v.startsWith("+") ? v : `+${v}`))
-  .pipe(z.string().regex(/^\+[1-9]\d{7,14}$/, "Enter a valid phone number with country code"));
+  .superRefine((v, ctx) => {
+    const isIndianMobile = /^[6-9]\d{9}$/.test(v);
+    const isInternational = /^\+[1-9]\d{7,14}$/.test(v);
+    if (!isIndianMobile && !isInternational) {
+      ctx.addIssue({ code: "custom", message: "Enter a 10-digit mobile number, or include the country code" });
+    }
+  })
+  .transform((v) => (/^[6-9]\d{9}$/.test(v) ? `+91${v}` : v));
 
-export const emailSchema = z.email("Enter a valid email address").trim().toLowerCase().max(254);
+export const emailSchema = z
+  .string()
+  .trim()
+  .toLowerCase()
+  .max(254)
+  .pipe(z.email("Enter a valid email address"));
 
 export const nameSchema = z
   .string()
@@ -35,13 +50,20 @@ export const timeSchema = z.string().regex(/^([01]\d|2[0-3]):[0-5]\d$/, "Use HH:
 export const latitudeSchema = z.coerce.number().min(-90).max(90);
 export const longitudeSchema = z.coerce.number().min(-180).max(180);
 
-/** Strip HTML tags and collapse whitespace for free-text fields. */
+/** Strip HTML tags and collapse runs of blank lines. */
+const sanitizeText = (s: string) => s.replace(/<[^>]*>/g, "").replace(/\s{3,}/g, "\n\n");
+
+/** Trimmed, length-capped, tag-stripped free text. */
 export const safeText = (max: number, label = "Text") =>
   z
     .string()
     .trim()
     .max(max, `${label} must be under ${max} characters`)
-    .transform((s) => s.replace(/<[^>]*>/g, "").replace(/\s{3,}/g, "\n\n"));
+    .transform(sanitizeText);
 
-export const optionalSafeText = (max: number, label?: string) =>
-  safeText(max, label).optional().or(z.literal("").transform(() => undefined));
+/** Optional free text: blank, whitespace-only and null all become undefined. */
+export const optionalSafeText = (max: number, label = "Text") =>
+  z
+    .union([safeText(max, label), z.null()])
+    .transform((v) => (v == null || v === "" ? undefined : v))
+    .optional();
