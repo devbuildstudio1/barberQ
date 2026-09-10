@@ -2,20 +2,21 @@
 
 import * as React from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import type { RealtimeChannel } from "@supabase/supabase-js";
 import { createClient } from "@/lib/supabase/client";
-import type { MyQueueEntry, QueueSnapshot, ShopLiveStatus } from "@/types/domain";
+import { subscribeShared, type LiveStatus, type TableSubscription } from "@/lib/supabase/realtime";
+import type { MyQueueEntry, QueueBoard, QueueSnapshot, ShopLiveStatus } from "@/types/domain";
 
-export type LiveStatus = "connecting" | "live" | "offline";
+export type { LiveStatus };
 
 /**
  * Subscribe to Postgres Changes and invalidate the given query keys whenever a
- * matching row changes. One channel per component instance; cleaned up on
- * unmount. Falls back to polling while the socket is not connected.
+ * matching row changes. Channels are shared and ref-counted (see
+ * lib/supabase/realtime) so remounts and duplicate consumers don't tear each
+ * other's socket down.
  */
 function useRealtimeInvalidation(
   channelName: string,
-  subscriptions: { table: string; filter?: string }[],
+  subscriptions: TableSubscription[],
   queryKeys: readonly (readonly unknown[])[],
   enabled = true,
 ): LiveStatus {
@@ -29,29 +30,13 @@ function useRealtimeInvalidation(
 
   React.useEffect(() => {
     if (!enabled) return;
-    const supabase = createClient();
-    let channel: RealtimeChannel = supabase.channel(channelName);
-    for (const sub of JSON.parse(subsKey) as { table: string; filter?: string }[]) {
-      channel = channel.on(
-        "postgres_changes",
-        { event: "*", schema: "public", table: sub.table, filter: sub.filter },
-        () => {
-          for (const key of keysRef.current) void queryClient.invalidateQueries({ queryKey: key });
-        },
-      );
-    }
-    channel.subscribe((state) => {
-      if (state === "SUBSCRIBED") {
-        setStatus("live");
-        // Catch up on anything missed while (re)connecting.
+    const subs = JSON.parse(subsKey) as TableSubscription[];
+    return subscribeShared(`${channelName}|${subsKey}`, subs, {
+      onChange: () => {
         for (const key of keysRef.current) void queryClient.invalidateQueries({ queryKey: key });
-      } else if (state === "CHANNEL_ERROR" || state === "TIMED_OUT" || state === "CLOSED") {
-        setStatus("offline");
-      }
+      },
+      onStatus: setStatus,
     });
-    return () => {
-      void supabase.removeChannel(channel);
-    };
   }, [channelName, subsKey, enabled, queryClient]);
 
   return enabled ? status : "offline";
@@ -73,6 +58,7 @@ export function useQueueSnapshot(queueId: string | null, initial?: QueueSnapshot
       return data as unknown as QueueSnapshot;
     },
     refetchInterval: (q) => (q.state.status === "error" ? 5_000 : 30_000),
+    refetchIntervalInBackground: true,
   });
   const live = useRealtimeInvalidation(
     `queue:${queueId}`,
@@ -98,6 +84,7 @@ export function useShopLiveStatus(shopId: string, initial?: ShopLiveStatus) {
       return data as unknown as ShopLiveStatus;
     },
     refetchInterval: 30_000,
+    refetchIntervalInBackground: true,
   });
   const live = useRealtimeInvalidation(
     `shop-live:${shopId}`,
@@ -126,6 +113,7 @@ export function useMyQueueEntry(initial: MyQueueEntry | null, userId: string) {
       return (data as unknown as MyQueueEntry | null) ?? null;
     },
     refetchInterval: (q) => (q.state.status === "error" ? 5_000 : 20_000),
+    refetchIntervalInBackground: true,
   });
   const queueId = query.data?.queue.id ?? null;
   const live = useRealtimeInvalidation(
@@ -135,6 +123,39 @@ export function useMyQueueEntry(initial: MyQueueEntry | null, userId: string) {
       { table: "queue_entries", filter: `user_id=eq.${userId}` },
     ],
     [myQueueKey],
+  );
+  return { ...query, live };
+}
+
+export function shopBoardKey(shopId: string) {
+  return ["shop-board", shopId] as const;
+}
+
+/**
+ * Staff view of today's queues for a shop. Subscribes to every queue_entries
+ * change for the shop plus the shop row (open/paused), so any device operating
+ * the queue sees the same state within a moment.
+ */
+export function useShopQueueBoard(shopId: string, initial: QueueBoard) {
+  const query = useQuery({
+    queryKey: shopBoardKey(shopId),
+    initialData: initial,
+    queryFn: async () => {
+      const { data, error } = await createClient().rpc("get_shop_queue_board", { p_shop_id: shopId });
+      if (error) throw error;
+      return data as unknown as QueueBoard;
+    },
+    refetchInterval: (q) => (q.state.status === "error" ? 5_000 : 30_000),
+    refetchIntervalInBackground: true,
+  });
+  const live = useRealtimeInvalidation(
+    `shop-board:${shopId}`,
+    [
+      { table: "queue_entries", filter: `shop_id=eq.${shopId}` },
+      { table: "queues", filter: `shop_id=eq.${shopId}` },
+      { table: "shops", filter: `id=eq.${shopId}` },
+    ],
+    [shopBoardKey(shopId)],
   );
   return { ...query, live };
 }

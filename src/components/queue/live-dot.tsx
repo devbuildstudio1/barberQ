@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import type { LiveStatus } from "@/hooks/use-realtime-queue";
+import type { LiveStatus } from "@/lib/supabase/realtime";
 
 /** Subtle realtime indicator: ● Live / Connecting / Offline (polling). */
 export function LiveDot({ status, className }: { status: LiveStatus; className?: string }) {
