@@ -660,6 +660,10 @@ export type Database = {
         Args: { p_date?: string; p_shop_id: string }
         Returns: Json
       }
+      get_shop_reviews: {
+        Args: { p_limit?: number; p_offset?: number; p_shop_id: string }
+        Returns: Json
+      }
       is_admin: { Args: never; Returns: boolean }
       join_queue: {
         Args: { p_barber_id?: string; p_service_id: string; p_shop_id: string }

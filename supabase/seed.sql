@@ -6,7 +6,7 @@
 -- Test logins (local):
 --   admin:   admin@queuecut.dev / Password123!
 --   owners:  owner1@queuecut.dev ... owner5@queuecut.dev / Password123!
---   customers (phone OTP, code 123456): +919000000001 ... +919000000005
+--   customers (phone OTP, code 123456): +919000000001 ... +919000000007
 -- =============================================================================
 
 -- ---- helper: create an auth user with password ------------------------------
@@ -54,6 +54,8 @@ select pg_temp.seed_user('c0000000-0000-4000-8000-000000000002', null, '91900000
 select pg_temp.seed_user('c0000000-0000-4000-8000-000000000003', null, '919000000003', 'Karthik Raja', 'customer');
 select pg_temp.seed_user('c0000000-0000-4000-8000-000000000004', null, '919000000004', 'Priya Nair', 'customer');
 select pg_temp.seed_user('c0000000-0000-4000-8000-000000000005', null, '919000000005', 'John Mathew', 'customer');
+select pg_temp.seed_user('c0000000-0000-4000-8000-000000000006', null, '919000000006', 'Vignesh Kumar', 'customer');
+select pg_temp.seed_user('c0000000-0000-4000-8000-000000000007', null, '919000000007', 'Sneha Iyer', 'customer');
 
 -- ---- shops (Chennai, IN) -----------------------------------------------------
 insert into public.shops (id, owner_id, name, description, address, city, latitude, longitude, phone, email, image, images, status, is_open, opening_time, closing_time, approved_at, created_at) values
@@ -217,11 +219,11 @@ begin
   select v_queue, v_shop, ('c0000000-0000-4000-8000-00000000000' || (1 + (t % 5)))::uuid, v_svc, public.app_today(), t, 'completed', 40,
          now() - ((10 - t) * interval '40 minutes'), now() - ((9 - t) * interval '40 minutes'), now() - ((9 - t) * interval '40 minutes'), now() - ((8 - t) * interval '40 minutes')
   from generate_series(1, 6) t;
-  -- Note: customers 4 and 5 are already active at Classic Cuts today; use 1..3 here? They are too. Use no active entries for customers with active entries elsewhere.
-  -- (Business rule 4 is per shop, so the same customer may wait at two shops. Keep demo simple: two waiting.)
+  -- Customers 1-5 hold tokens at Classic Cuts today; use separate demo customers here so
+  -- each person has a single active token (the UI allows one active queue at a time).
   insert into public.queue_entries (queue_id, shop_id, user_id, service_id, queue_date, token_number, status, estimated_duration_minutes, joined_at) values
-  (v_queue, v_shop, 'c0000000-0000-4000-8000-000000000001', v_svc, public.app_today(), 7, 'waiting', 40, now() - interval '12 minutes'),
-  (v_queue, v_shop, 'c0000000-0000-4000-8000-000000000002', v_svc, public.app_today(), 8, 'waiting', 40, now() - interval '4 minutes');
+  (v_queue, v_shop, 'c0000000-0000-4000-8000-000000000006', v_svc, public.app_today(), 7, 'waiting', 40, now() - interval '12 minutes'),
+  (v_queue, v_shop, 'c0000000-0000-4000-8000-000000000007', v_svc, public.app_today(), 8, 'waiting', 40, now() - interval '4 minutes');
 
   v_shop := 'd0000000-0000-4000-8000-000000000004';
   insert into public.queues (shop_id, barber_id, queue_date, token_prefix, status, last_token_number, current_token)
@@ -230,9 +232,11 @@ begin
   v_shop := 'd0000000-0000-4000-8000-000000000003';
   select id into v_svc from public.services where shop_id = v_shop and name = 'Executive Haircut';
   insert into public.queues (shop_id, barber_id, queue_date, token_prefix, status, last_token_number, current_token)
-  values (v_shop, null, public.app_today(), 'A', 'active', 12, 11) returning id into v_queue;
-  insert into public.queue_entries (queue_id, shop_id, user_id, service_id, queue_date, token_number, status, estimated_duration_minutes, joined_at) values
-  (v_queue, v_shop, 'c0000000-0000-4000-8000-000000000003', v_svc, public.app_today(), 12, 'waiting', 35, now() - interval '3 minutes');
+  values (v_shop, null, public.app_today(), 'A', 'active', 11, 11) returning id into v_queue;
+  insert into public.queue_entries (queue_id, shop_id, user_id, service_id, queue_date, token_number, status, estimated_duration_minutes, joined_at, called_at, started_at, completed_at)
+  select v_queue, v_shop, ('c0000000-0000-4000-8000-00000000000' || (1 + (t % 7)))::uuid, v_svc, public.app_today(), t, 'completed', 35,
+         now() - ((14 - t) * interval '35 minutes'), now() - ((13 - t) * interval '35 minutes'), now() - ((13 - t) * interval '35 minutes'), now() - ((12 - t) * interval '35 minutes')
+  from generate_series(1, 11) t;
 end $$;
 
 -- ---- notifications for demo customers ---------------------------------------
