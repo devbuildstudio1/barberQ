@@ -93,6 +93,9 @@ importers:
 
   website:
     dependencies:
+      '@supabase/supabase-js':
+        specifier: ^2.116.0
+        version: 2.116.0
       clsx:
         specifier: ^2.1.1
         version: 2.1.1

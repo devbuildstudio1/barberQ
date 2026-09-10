@@ -16,7 +16,7 @@ This is a pnpm workspace with two deployable sites and one shared database.
 | Package | Runs on | What it is |
 | --- | --- | --- |
 | `app` | port 3000 | The product. Next.js App Router, Supabase auth, realtime queue, RLS |
-| `website` | port 3001 | Public marketing site. Static, no database, no auth |
+| `website` | port 3001 | Public marketing site. Read-only public data, no auth |
 
 They deploy separately: the website at the apex domain, the app at `app.` — the website's calls to
 action deep-link into the app via `NEXT_PUBLIC_APP_URL`.
@@ -76,7 +76,7 @@ Integration and E2E tests need the local stack running with the seed data.
 ## Architecture
 
 ```
-Browser ──► website (static marketing, no data access)
+Browser ──► website ──► Supabase (read-only: approved shops, public stats)
        │
        └──► app ──► Supabase Postgres
                      ├─ Row Level Security on every table
@@ -143,6 +143,11 @@ in `estimate_wait_minutes` so it can later use observed durations instead of con
 | --- | --- | --- |
 | `NEXT_PUBLIC_APP_URL` | yes | Where every call to action points |
 | `NEXT_PUBLIC_SITE_URL` | recommended | Canonical marketing URL for metadata and the sitemap |
+| `NEXT_PUBLIC_SUPABASE_URL` | optional | Read-only access to the public shop directory and platform stats |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | optional | Same anon key as the app; RLS limits it to approved shops |
+
+The marketing site degrades gracefully: with Supabase unset or unreachable it still builds and renders,
+falling back to static copy and hiding the live shop strip. A database outage cannot take it down.
 
 ---
 
@@ -151,7 +156,8 @@ in `estimate_wait_minutes` so it can later use observed durations instead of con
 Both packages deploy to Vercel as separate projects from the same repository.
 
 **Website** — root directory `website`, build `pnpm build`. Set `NEXT_PUBLIC_APP_URL` to the app's
-domain and `NEXT_PUBLIC_SITE_URL` to its own.
+domain, `NEXT_PUBLIC_SITE_URL` to its own, and the two public Supabase variables so the home page shows
+real shops. Pages revalidate every five minutes rather than rendering per request.
 
 **App** — root directory `app`, build `pnpm build`. Set the Supabase variables and
 `NEXT_PUBLIC_APP_URL`. Do not set the service role key: the app does not use it.

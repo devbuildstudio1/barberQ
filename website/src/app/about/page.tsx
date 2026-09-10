@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Clock, Heart, ShieldCheck, Users } from "lucide-react";
 import { Cta, Section, SectionHeading, Stat } from "@/components/ui";
 import { BRAND, appLink } from "@/lib/config";
+import { approx, getPlatformStats } from "@/lib/data";
+
+export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "About",
@@ -16,7 +19,9 @@ const VALUES = [
   { icon: Heart, title: "Built for local shops", text: "Independent barbers, not chains. Free to list, quick to set up, no hardware to buy." },
 ];
 
-export default function AboutPage() {
+export default async function AboutPage() {
+  const stats = await getPlatformStats();
+
   return (
     <>
       <Section tone="muted" className="py-14 sm:py-16">
@@ -64,8 +69,11 @@ export default function AboutPage() {
       <Section>
         <div className="grid gap-10 rounded-xl border border-border bg-surface p-8 shadow-card sm:grid-cols-2 lg:grid-cols-4">
           <Stat value="2026" label="Founded in Chennai" />
-          <Stat value="60+" label="Shops onboarding" />
-          <Stat value="12 min" label="Average time saved per visit" />
+          <Stat value={stats.live && stats.approvedShops > 0 ? approx(stats.approvedShops) : "New"} label="Shops on the platform" />
+          <Stat
+            value={stats.live && stats.completedServices > 0 ? approx(stats.completedServices) : "Live"}
+            label={stats.live && stats.completedServices > 0 ? "Haircuts served through the queue" : "Queue positions, in seconds"}
+          />
           <Stat value="Free" label="For customers and shops" />
         </div>
         <div className="mt-10 text-center">

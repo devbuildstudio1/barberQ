@@ -1,7 +1,7 @@
 # @queuecut/website
 
-Public marketing site for QueueCut. Static, no database, no authentication: it exists to explain the
-product and hand visitors to the app.
+Public marketing site for QueueCut. It explains the product, shows real shops and real platform
+numbers, and hands visitors to the app. No authentication, no writes.
 
 ```bash
 pnpm dev:website     # http://localhost:3001   (from the repository root)
@@ -27,5 +27,9 @@ pnpm dev:website     # http://localhost:3001   (from the repository root)
 - Brand copy lives in `BRAND` in the same file so names, contact details and the tagline change once.
 - Design tokens in `src/app/globals.css` mirror the app's. Keep them in step when the brand changes;
   the site deliberately has no build-time dependency on product code.
-- No client-side data fetching. Pages should stay statically renderable so the marketing site is fast
-  and indexable even when the app or database is down.
+- Data comes from Supabase on the server via `src/lib/data.ts`, using the anon key and only data Row
+  Level Security already makes public: approved shops and the `get_public_stats` aggregates. Pages set
+  `revalidate` so they stay cacheable instead of hitting the database per request.
+- Every query must degrade gracefully. If Supabase is unset, slow or unreachable the helpers return
+  fallbacks and the page hides live sections, so the marketing site survives a database outage.
+- No client-side data fetching, no auth, no writes. If a page needs a session, it belongs in the app.

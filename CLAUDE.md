@@ -7,7 +7,7 @@ Read README.md first: it covers the workspace layout, architecture, commands and
 pnpm workspace with two deployable packages and one shared database.
 
 - `app/` — the product (customer queue, shop dashboard, admin). Port 3000.
-- `website/` — public marketing site. Static, no database, no auth. Port 3001.
+- `website/` — public marketing site. Read-only public data, no auth. Port 3001.
 - `supabase/` — migrations, seed and local config, shared by both.
 
 All commands run from the repository root; `pnpm dev` starts the app, `pnpm dev:website` the site.
@@ -24,9 +24,11 @@ Database scripts (`db:reset`, `db:types`) live at the root because `supabase/` i
   it is not a security boundary. Any new table needs RLS policies plus explicit grants.
 - **Errors reach users through `AppError`.** Map failures to a code in `src/lib/errors`; raw Postgres
   messages must never surface in the UI.
-- **The marketing site never talks to the database.** It stays statically renderable so it survives an
-  app or database outage. Calls to action deep-link into the app through `appLink` in
-  `website/src/lib/config.ts`.
+- **The marketing site reads, never writes.** It uses the anon key on the server for data RLS already
+  makes public (approved shops, `get_public_stats`), behind `revalidate` so pages stay cacheable.
+  Every query goes through `website/src/lib/data.ts`, which falls back to static copy on failure so a
+  database outage cannot take the site down. Never add auth, sessions or writes there.
+- Calls to action deep-link into the app through `appLink` in `website/src/lib/config.ts`.
 - After changing the schema, run `pnpm db:reset` then `pnpm db:types`.
 - After changing `supabase/config.toml` auth settings, restart the stack — `db reset` does not reload
   auth configuration.
