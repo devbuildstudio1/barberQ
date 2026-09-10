@@ -1,0 +1,55 @@
+src/components/admin/admin-shell.tsx
+  s_8b9267972ee537::t_d6d03eb848ee27 1-35
+src/app/(admin)/admin/shops/page.tsx
+  s_8b9267972ee537::t_53f02035a5ae9d 1-38
+src/app/(admin)/admin/barbers/barbers-table.tsx
+  s_8b9267972ee537::t_c721d687e21b83 1-76
+src/app/(admin)/admin/users/page.tsx
+  s_8b9267972ee537::t_c721d687e21b83 1-29
+src/app/(admin)/admin/users/users-table.tsx
+  s_8b9267972ee537::t_c721d687e21b83 1-77
+src/lib/admin/actions.ts
+  s_8b9267972ee537::t_b88945c9307fc9 1-114
+src/app/(admin)/admin/dashboard/page.tsx
+  s_8b9267972ee537::t_baf029d3966234 1-72
+src/lib/admin/queries.ts
+  s_8b9267972ee537::t_52d04a3aa0fbd4 1-105
+src/components/admin/daily-bars.tsx
+  s_8b9267972ee537::t_852f3b8f9879b9 1-55
+src/app/(admin)/admin/layout.tsx
+  s_8b9267972ee537::t_d6d03eb848ee27 1-9
+src/app/(admin)/admin/shops/shops-table.tsx
+  s_8b9267972ee537::t_0fa760df544dab 1-179
+src/components/admin/filter-bar.tsx
+  s_8b9267972ee537::t_d6d03eb848ee27 1-89
+src/app/(admin)/admin/barbers/page.tsx
+  s_8b9267972ee537::t_c721d687e21b83 1-20
+src/components/admin/data-table.tsx
+  s_8b9267972ee537::t_d6d03eb848ee27 1-57
+src/app/(admin)/admin/page.tsx
+  s_8b9267972ee537::t_49e5e74aadf0d4 1-5
+src/app/(admin)/admin/queues/page.tsx
+  s_8b9267972ee537::t_49e5e74aadf0d4 1-88
+src/app/(admin)/admin/reports/page.tsx
+  s_8b9267972ee537::t_49e5e74aadf0d4 1-58
+src/app/(admin)/admin/reviews/page.tsx
+  s_8b9267972ee537::t_49e5e74aadf0d4 1-30
+src/app/(admin)/admin/reviews/reviews-table.tsx
+  s_8b9267972ee537::t_49e5e74aadf0d4 1-97
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "a4e17f5efe4e07fa097d9a31c7dd9f3783d5968f",
+  "prompts": {},
+  "sessions": {
+    "s_8b9267972ee537": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "aa8e1de2-c571-43da-911c-7e24b31d7125",
+        "model": "claude-opus-5"
+      },
+      "human_author": "fayiz <fayiz.p@icliniq.com>"
+    }
+  }
+}
