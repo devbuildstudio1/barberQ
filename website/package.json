@@ -7,7 +7,9 @@
     "build": "next build",
     "start": "next start --port 3001",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "preview": "next build && wrangler dev",
+    "deploy": "next build && wrangler deploy --keep-vars"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.116.0",
@@ -26,6 +28,7 @@
     "eslint": "^9",
     "eslint-config-next": "16.3.4",
     "tailwindcss": "^4",
-    "typescript": "^5"
+    "typescript": "^5",
+    "wrangler": "^4.131.0"
   }
 }

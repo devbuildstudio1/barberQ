@@ -1,37 +1,17 @@
 import type { NextConfig } from "next";
 
-const supabaseHost = (() => {
-  try {
-    return process.env.NEXT_PUBLIC_SUPABASE_URL ? new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).hostname : undefined;
-  } catch {
-    return undefined;
-  }
-})();
-
-const isLocalHost = supabaseHost === "localhost" || supabaseHost === "127.0.0.1";
-
 const nextConfig: NextConfig = {
   reactStrictMode: true,
   poweredByHeader: false,
+  // Fully static build: the marketing site is deployed as Cloudflare Workers
+  // static assets, so it keeps serving even if the app or database is down.
+  output: "export",
   images: {
-    remotePatterns: [
-      { protocol: "https", hostname: "images.unsplash.com" },
-      { protocol: "https", hostname: "*.supabase.co" },
-      // Shop photos uploaded to Supabase Storage.
-      ...(supabaseHost ? [{ protocol: isLocalHost ? ("http" as const) : ("https" as const), hostname: supabaseHost }] : []),
-    ],
+    // `next/image` optimisation needs a server; a static export has none.
+    unoptimized: true,
   },
-  headers: async () => [
-    {
-      source: "/(.*)",
-      headers: [
-        { key: "X-Content-Type-Options", value: "nosniff" },
-        { key: "X-Frame-Options", value: "DENY" },
-        { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
-        { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
-      ],
-    },
-  ],
+  // Security headers cannot come from `headers()` in a static export — they are
+  // served by Cloudflare from `public/_headers` instead.
 };
 
 export default nextConfig;

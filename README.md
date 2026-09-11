@@ -153,14 +153,17 @@ falling back to static copy and hiding the live shop strip. A database outage ca
 
 ## Deployment
 
-Both packages deploy to Vercel as separate projects from the same repository.
+Both packages deploy to Cloudflare as separate Workers from the same repository. See
+[CLOUDFLARE.md](CLOUDFLARE.md) for the full dashboard walkthrough.
 
-**Website** — root directory `website`, build `pnpm build`. Set `NEXT_PUBLIC_APP_URL` to the app's
-domain, `NEXT_PUBLIC_SITE_URL` to its own, and the two public Supabase variables so the home page shows
-real shops. Pages revalidate every five minutes rather than rendering per request.
+**Website** — root directory `website`, a static export (`output: "export"`) served as Workers static
+assets, so it survives an app or database outage. Set `NEXT_PUBLIC_APP_URL` to the app's domain,
+`NEXT_PUBLIC_SITE_URL` to its own, and the two public Supabase variables so the home page shows real
+shops. Supabase is read at build time, so rebuild to refresh the numbers.
 
-**App** — root directory `app`, build `pnpm build`. Set the Supabase variables and
-`NEXT_PUBLIC_APP_URL`. Do not set the service role key: the app does not use it.
+**App** — root directory `app`, a Worker built by `@opennextjs/cloudflare`. Set the Supabase variables
+and `NEXT_PUBLIC_APP_URL`. All `NEXT_PUBLIC_*` values are inlined at build time, so they belong in the
+build variables, not the runtime ones. Do not set the service role key: the app does not use it.
 
 **Database** — `supabase link` then `supabase db push` from the repository root. Configure a real SMS
 provider under `[auth.sms]` and remove the `test_otp` block, which exists only for local development.

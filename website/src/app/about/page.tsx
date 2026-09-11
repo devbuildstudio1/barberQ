@@ -4,8 +4,6 @@ import { Cta, Section, SectionHeading, Stat } from "@/components/ui";
 import { BRAND, appLink } from "@/lib/config";
 import { approx, getPlatformStats } from "@/lib/data";
 
-export const revalidate = 300;
-
 export const metadata: Metadata = {
   title: "About",
   description: `Why we built ${BRAND.name}: local barbershops run on walk-ins, and walk-ins run on waiting. We replaced the bench with a live queue.`,

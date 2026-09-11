@@ -16,12 +16,6 @@ import { ShopStrip } from "@/components/shop-strip";
 import { BRAND, SITE_URL, appLink } from "@/lib/config";
 import { approx, formatMinutes, getFeaturedShops, getPlatformStats } from "@/lib/data";
 
-/**
- * Live shop data and platform numbers, refreshed periodically rather than on
- * every request: the page stays cacheable and survives a database outage.
- */
-export const revalidate = 300;
-
 const STEPS = [
   { icon: Search, title: "Find a barber", text: "Browse shops near you with live queue counts, wait times and prices." },
   { icon: Ticket, title: "Join remotely", text: "Pick a service and barber, then get a digital token instantly." },
@@ -36,6 +30,8 @@ const CUSTOMER_FEATURES = [
 ];
 
 export default async function HomePage() {
+  // Read at build time: this site is a static export, so it survives an app or
+  // database outage. Rebuild to refresh the numbers.
   const [stats, shops] = await Promise.all([getPlatformStats(), getFeaturedShops(6)]);
 
   const jsonLd = {

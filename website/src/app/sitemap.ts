@@ -1,6 +1,9 @@
 import type { MetadataRoute } from "next";
 import { SITE_URL } from "@/lib/config";
 
+// Static export: emit this as a file at build time rather than a route handler.
+export const dynamic = "force-static";
+
 const ROUTES = [
   { path: "", priority: 1, changeFrequency: "weekly" as const },
   { path: "/features", priority: 0.9, changeFrequency: "monthly" as const },

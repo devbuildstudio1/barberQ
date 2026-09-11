@@ -1,0 +1,31 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "queuecut-app",
+  "main": ".open-next/worker.js",
+  "compatibility_date": "2026-09-01",
+  "compatibility_flags": ["nodejs_compat", "global_fetch_strictly_public"],
+  "assets": {
+    "directory": ".open-next/assets",
+    "binding": "ASSETS"
+  },
+  // Lets the Worker call itself, which OpenNext needs for cache revalidation.
+  "services": [
+    {
+      "binding": "WORKER_SELF_REFERENCE",
+      "service": "queuecut-app"
+    }
+  ],
+  // next/image optimisation. There is no sharp on Workers, so this binding
+  // (Cloudflare Images) does the resizing instead.
+  "images": {
+    "binding": "IMAGES"
+  },
+  // Shared incremental cache, so `revalidate` on the marketing page and the
+  // sitemap propagates across isolates instead of being per-instance.
+  "r2_buckets": [
+    {
+      "binding": "NEXT_INC_CACHE_R2_BUCKET",
+      "bucket_name": "queuecut-app-cache"
+    }
+  ]
+}

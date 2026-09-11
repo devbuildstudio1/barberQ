@@ -4,8 +4,6 @@ import { Cta, Section, SectionHeading } from "@/components/ui";
 import { appLink } from "@/lib/config";
 import { approx, getPlatformStats } from "@/lib/data";
 
-export const revalidate = 300;
-
 export const metadata: Metadata = {
   title: "For barbers",
   description:
