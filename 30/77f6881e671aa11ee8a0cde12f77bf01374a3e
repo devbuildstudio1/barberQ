@@ -1,0 +1,28 @@
+app/wrangler.jsonc
+  s_55691d4f81eddc::t_f1513cd88d7f03 22
+CLOUDFLARE.md
+  s_55691d4f81eddc::t_b9ad191e5ae97d 14,23,26-37,63,93,101
+app/open-next.config.ts
+  s_55691d4f81eddc::t_f1513cd88d7f03 3-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "3077f6881e671aa11ee8a0cde12f77bf01374a3e",
+  "prompts": {},
+  "humans": {
+    "h_f4310969f9abe9": {
+      "author": "fayiz <fayiz.p@icliniq.com>"
+    }
+  },
+  "sessions": {
+    "s_55691d4f81eddc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e1578844-d05a-4ad1-82af-229fb96dde17",
+        "model": "claude-opus-5"
+      },
+      "human_author": "fayiz <fayiz.p@icliniq.com>"
+    }
+  }
+}
