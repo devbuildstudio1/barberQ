@@ -19,13 +19,5 @@
   // (Cloudflare Images) does the resizing instead.
   "images": {
     "binding": "IMAGES"
-  },
-  // Shared incremental cache, so `revalidate` on the marketing page and the
-  // sitemap propagates across isolates instead of being per-instance.
-  "r2_buckets": [
-    {
-      "binding": "NEXT_INC_CACHE_R2_BUCKET",
-      "bucket_name": "barberq-app-cache"
-    }
-  ]
+  }
 }

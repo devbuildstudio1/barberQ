@@ -11,16 +11,7 @@ Everything below is done from the Cloudflare dashboard. The repository already
 carries the configuration the dashboard needs (`wrangler.jsonc` in each package,
 `open-next.config.ts` in `app/`).
 
-## 1. Create the R2 bucket first
-
-**R2 → Create bucket → `barberq-app-cache`**
-
-`app/wrangler.jsonc` binds this bucket as the incremental cache. The app's
-`revalidate` pages (the marketing page, the sitemap) use it so revalidation is
-shared across isolates instead of being per-instance. The first deploy fails if
-the bucket does not exist.
-
-## 2. Create the app Worker
+## 1. Create the app Worker
 
 **Workers & Pages → Create → Workers → Import a repository** → connect
 `devbuildstudio1/barberQ`.
@@ -29,11 +20,21 @@ the bucket does not exist.
 | --- | --- |
 | Worker name | `barberq-app` |
 | Root directory | `app` |
-| Build command | `cd .. && pnpm install --frozen-lockfile && cd app && pnpm exec opennextjs-cloudflare build` |
+| Build command | `pnpm exec opennextjs-cloudflare build` |
 | Deploy command | `npx wrangler deploy` |
 
-The build command installs from the repository root on purpose: `pnpm-lock.yaml`
-lives there, and `app/` is a workspace package that cannot install on its own.
+Cloudflare installs dependencies from the repository root before the build command
+runs, so the command only builds. It must be the OpenNext build, not `pnpm run build`:
+plain `next build` leaves no `.open-next/` and `wrangler deploy` then fails with
+"Could not find compiled Open Next config".
+
+### No R2 cache
+
+`app/open-next.config.ts` sets no incremental cache, so OpenNext uses its built-in
+`dummy` cache and the Worker needs no R2 bucket. The trade-off: `revalidate` pages
+(the marketing page, the sitemap) re-render per isolate instead of sharing a cache.
+To share one, enable R2, create a bucket, bind it as `NEXT_INC_CACHE_R2_BUCKET` in
+`app/wrangler.jsonc` and set `incrementalCache` to the `r2-incremental-cache` override.
 
 ### Build variables (Settings → Build → Build variables and secrets)
 
@@ -59,7 +60,7 @@ exists for local tooling, seeds and test fixtures only.
 subdomain until the first deploy. Deploy once with it unset, read the URL off the
 Worker, set the variable, then retry the deployment.
 
-## 3. Create the website Worker
+## 2. Create the website Worker
 
 **Workers & Pages → Create → Workers → Import a repository** → same repository.
 
@@ -89,7 +90,7 @@ Because the site is a static export, the shop counts and platform numbers are
 frozen at build time. Trigger a rebuild to refresh them — a deploy hook on a
 schedule works if you want them current.
 
-## 4. Point Supabase at the new origins
+## 3. Point Supabase at the new origins
 
 **Supabase dashboard → Authentication → URL Configuration**
 
@@ -97,7 +98,7 @@ schedule works if you want them current.
 - Redirect URLs: add the same origin. Sign-in, registration and email
   confirmation redirects all fail silently against an origin that is not listed.
 
-## 5. Custom domains, later
+## 4. Custom domains, later
 
 **Worker → Settings → Domains & Routes → Add custom domain.** After adding one:
 
