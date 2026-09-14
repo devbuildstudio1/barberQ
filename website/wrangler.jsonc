@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "queuecut-website",
+  "name": "barberq-website",
   "compatibility_date": "2026-09-01",
   // Static assets only — no Worker script, so no invocation cost and no cold
   // start. `next build` with `output: "export"` writes the site to out/.

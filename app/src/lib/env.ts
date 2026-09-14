@@ -28,7 +28,9 @@ export function publicEnv() {
   });
   if (!parsed.success) {
     throw new Error(
-      `Missing/invalid public environment variables: ${parsed.error.issues.map((i) => i.path.join(".")).join(", ")}. See .env.example.`,
+      `Missing/invalid public environment variables: ${parsed.error.issues.map((i) => i.path.join(".")).join(", ")}. ` +
+        `Locally these come from .env.local; in a deployment they are build-time variables, ` +
+        `because Next.js inlines NEXT_PUBLIC_* during the build. Names are listed in .env.example.`,
     );
   }
   cachedPublic = parsed.data;
@@ -46,7 +48,7 @@ export function serverEnv() {
     SUPABASE_SERVICE_ROLE_KEY: process.env.SUPABASE_SERVICE_ROLE_KEY,
   });
   if (!parsed.success) {
-    throw new Error("Invalid server environment variables. See .env.example.");
+    throw new Error("Invalid server environment variables. Names are listed in .env.example.");
   }
   cachedServer = parsed.data;
   return cachedServer;

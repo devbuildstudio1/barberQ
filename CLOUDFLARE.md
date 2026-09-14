@@ -4,8 +4,8 @@ Two Workers, one repository:
 
 | Worker | Source | What it is |
 | --- | --- | --- |
-| `queuecut-app` | `app/` | The product. A Worker running the Next.js server through [`@opennextjs/cloudflare`](https://opennext.js.org/cloudflare). |
-| `queuecut-website` | `website/` | The marketing site. Static assets only — `next build` with `output: "export"`. No Worker script, so no invocation cost and no cold start. |
+| `barberq-app` | `app/` | The product. A Worker running the Next.js server through [`@opennextjs/cloudflare`](https://opennext.js.org/cloudflare). |
+| `barberq-website` | `website/` | The marketing site. Static assets only — `next build` with `output: "export"`. No Worker script, so no invocation cost and no cold start. |
 
 Everything below is done from the Cloudflare dashboard. The repository already
 carries the configuration the dashboard needs (`wrangler.jsonc` in each package,
@@ -13,7 +13,7 @@ carries the configuration the dashboard needs (`wrangler.jsonc` in each package,
 
 ## 1. Create the R2 bucket first
 
-**R2 → Create bucket → `queuecut-app-cache`**
+**R2 → Create bucket → `barberq-app-cache`**
 
 `app/wrangler.jsonc` binds this bucket as the incremental cache. The app's
 `revalidate` pages (the marketing page, the sitemap) use it so revalidation is
@@ -27,7 +27,7 @@ the bucket does not exist.
 
 | Field | Value |
 | --- | --- |
-| Worker name | `queuecut-app` |
+| Worker name | `barberq-app` |
 | Root directory | `app` |
 | Build command | `cd .. && pnpm install --frozen-lockfile && cd app && pnpm exec opennextjs-cloudflare build` |
 | Deploy command | `npx wrangler deploy` |
@@ -43,7 +43,7 @@ only as runtime variables produces a build with `undefined` everywhere.
 ```
 NEXT_PUBLIC_SUPABASE_URL       https://<project-ref>.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY  <anon key>
-NEXT_PUBLIC_APP_URL            https://queuecut-app.<subdomain>.workers.dev
+NEXT_PUBLIC_APP_URL            https://barberq-app.<subdomain>.workers.dev
 NEXT_PUBLIC_MAPS_API_KEY       <browser-restricted key, or leave unset>
 ```
 
@@ -65,7 +65,7 @@ Worker, set the variable, then retry the deployment.
 
 | Field | Value |
 | --- | --- |
-| Worker name | `queuecut-website` |
+| Worker name | `barberq-website` |
 | Root directory | `website` |
 | Build command | `cd .. && pnpm install --frozen-lockfile && cd website && pnpm exec next build` |
 | Deploy command | `npx wrangler deploy` |
@@ -73,8 +73,8 @@ Worker, set the variable, then retry the deployment.
 ### Build variables
 
 ```
-NEXT_PUBLIC_APP_URL            https://queuecut-app.<subdomain>.workers.dev
-NEXT_PUBLIC_SITE_URL           https://queuecut-website.<subdomain>.workers.dev
+NEXT_PUBLIC_APP_URL            https://barberq-app.<subdomain>.workers.dev
+NEXT_PUBLIC_SITE_URL           https://barberq-website.<subdomain>.workers.dev
 NEXT_PUBLIC_SUPABASE_URL       https://<project-ref>.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY  <anon key>
 ```
@@ -130,6 +130,28 @@ in `app/next.config.ts` and drop the binding.
 supported in a static export, so they are served by Cloudflare from
 `website/public/_headers`. The app still sets its headers through
 `app/next.config.ts`, which works normally on a Worker.
+
+## Troubleshooting
+
+**Build fails with `Missing/invalid public environment variables: NEXT_PUBLIC_SUPABASE_URL, NEXT_PUBLIC_SUPABASE_ANON_KEY`,
+usually while prerendering `/shop/register`.**
+
+The variables are not reaching `next build`. Almost always they were set under
+Settings → Variables & Secrets, which is runtime-only, instead of Settings →
+Build → Build variables and secrets. `NEXT_PUBLIC_*` is inlined during the build,
+so a runtime value never reaches the code.
+
+The page named in the error is incidental: it is simply the first route whose
+render touches the environment. `getCurrentProfile()` throws before `cookies()`
+is reached, so Next.js cannot mark the route dynamic and reports it as a
+prerender failure.
+
+**A deploy succeeds but the Worker you configured stays empty.**
+
+`wrangler deploy` takes the Worker name from `wrangler.jsonc`, not from the
+dashboard. If they disagree it creates a second Worker under the name in the
+file. Keep `name` in `app/wrangler.jsonc` and `website/wrangler.jsonc` matching
+the Workers you created, along with the `WORKER_SELF_REFERENCE` service name.
 
 ## Deploying by hand
 
