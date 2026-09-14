@@ -1,0 +1,12 @@
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "d2a6dcf4288b78f92225b39ae6e0f69ffdbab1bf",
+  "prompts": {},
+  "humans": {
+    "h_f4310969f9abe9": {
+      "author": "fayiz <fayiz.p@icliniq.com>"
+    }
+  }
+}
