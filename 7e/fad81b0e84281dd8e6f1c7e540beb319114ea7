@@ -1,0 +1,62 @@
+website/README.md
+  s_12ce9e3f28cc54::t_35ef3309673b12 30-31
+  s_12ce9e3f28cc54::t_4c43b687a35a66 3-4
+package.json
+  s_12ce9e3f28cc54::t_d981081f28499c 20-23
+app/package.json
+  s_12ce9e3f28cc54::t_9c7a79219f4f35 16-19
+  s_12ce9e3f28cc54::t_820c62076e4168 49
+app/README.md
+  s_12ce9e3f28cc54::t_9e90066544262f 38-41
+CLAUDE.md
+  s_12ce9e3f28cc54::t_ed04d5c8aa81bd 7,10,14-15
+  s_12ce9e3f28cc54::t_32a5c331850b42 20
+  s_12ce9e3f28cc54::t_05c82e4a4348d4 28-29
+  s_12ce9e3f28cc54::t_78c23894e390f5 32
+  s_12ce9e3f28cc54::t_4db1a2aadd7373 11
+website/src/app/for-barbers/page.tsx
+  s_12ce9e3f28cc54::t_dcd3122bcfbdb1 36
+website/src/app/page.tsx
+  s_12ce9e3f28cc54::t_8d6195ba404fc0 30
+  s_12ce9e3f28cc54::t_5281608fb80171 70-74
+  s_12ce9e3f28cc54::t_839de633500087 199-202
+  s_12ce9e3f28cc54::t_7e6bd961c08abe 113
+README.md
+  s_12ce9e3f28cc54::t_00272be6c6674e 164
+  s_12ce9e3f28cc54::t_3d1caeac7fb3df 41
+  s_12ce9e3f28cc54::t_fd8aa6d697324c 49
+  s_12ce9e3f28cc54::t_561e675ebcde07 158
+  s_12ce9e3f28cc54::t_3b2f2fa708d024 7,12-13,19
+  s_12ce9e3f28cc54::t_09c79f530101e4 147
+  s_12ce9e3f28cc54::t_d16f34cf012141 79
+website/src/app/about/page.tsx
+  s_12ce9e3f28cc54::t_a2f911c0dba2b3 67-68
+  s_12ce9e3f28cc54::t_a9da1510653bac 19
+CLOUDFLARE.md
+  s_12ce9e3f28cc54::t_dfcec1eade7aff 81-82
+pnpm-lock.yaml
+  s_12ce9e3f28cc54::t_2ce6df31fb8d1f 9,18,79-82,137,5467,5490,5494
+app/supabase/migrations/20260915000008_drop_public_stats.sql
+  s_12ce9e3f28cc54::t_6e75698898a3e7 1-8
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "7efad81b0e84281dd8e6f1c7e540beb319114ea7",
+  "prompts": {},
+  "humans": {
+    "h_f4310969f9abe9": {
+      "author": "fayiz <fayiz.p@icliniq.com>"
+    }
+  },
+  "sessions": {
+    "s_12ce9e3f28cc54": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "22019e6f-2ef2-4190-bbff-af6bd3a4fc82",
+        "model": "claude-opus-5"
+      },
+      "human_author": "fayiz <fayiz.p@icliniq.com>"
+    }
+  }
+}
