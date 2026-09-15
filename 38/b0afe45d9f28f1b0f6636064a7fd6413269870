@@ -1,0 +1,41 @@
+app/src/lib/auth/actions.ts
+  s_d824da93efe509::t_f6d4450893ceb2 27
+  s_d824da93efe509::t_45e7f0240171b2 17
+supabase/config.toml
+  s_d824da93efe509::t_93cc5c5c27d646 162
+  s_d824da93efe509::t_c8742b1210a5df 345-355
+app/src/components/forms/google-sign-in-button.tsx
+  s_d824da93efe509::t_270c2c05ac2e79 1-49
+app/src/app/(auth)/register/page.tsx
+  s_d824da93efe509::t_39215ded60da41 29-33
+  s_d824da93efe509::t_e0fb0208b56818 4-5
+app/src/components/forms/auth-divider.tsx
+  s_d824da93efe509::t_794d0efddc4e4f 1-9
+app/src/app/auth/callback/route.ts
+  s_d824da93efe509::t_c8e59933f36430 1-35
+app/src/app/(auth)/login/page.tsx
+  s_d824da93efe509::t_8ffc50e6dd9f28 4-6,11-18,32-37
+app/src/lib/auth/redirects.ts
+  s_d824da93efe509::t_910f28eedb436c 1-14
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "38b0afe45d9f28f1b0f6636064a7fd6413269870",
+  "prompts": {},
+  "humans": {
+    "h_f4310969f9abe9": {
+      "author": "fayiz <fayiz.p@icliniq.com>"
+    }
+  },
+  "sessions": {
+    "s_d824da93efe509": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "cf9d4864-1df1-49b0-a3e2-898bfb977982",
+        "model": "claude-opus-5"
+      },
+      "human_author": "fayiz <fayiz.p@icliniq.com>"
+    }
+  }
+}
