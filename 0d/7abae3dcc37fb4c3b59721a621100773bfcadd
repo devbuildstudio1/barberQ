@@ -1,0 +1,78 @@
+app/src/lib/admin/actions.ts
+  s_aa0caf4caad5bc::t_a824110fe5501e 29
+website/src/lib/config.ts
+  s_aa0caf4caad5bc::t_fd439dca28b05d 26
+app/src/app/(customer)/shops/[id]/not-found.tsx
+  s_aa0caf4caad5bc::t_11e387e71daf10 14
+app/src/app/robots.ts
+  s_aa0caf4caad5bc::t_e0e97fc42e2482 10
+app/src/components/layout/site-footer.tsx
+  s_aa0caf4caad5bc::t_50142bc4942755 8
+app/src/app/(customer)/my-queue/page.tsx
+  s_aa0caf4caad5bc::t_20d56f46003c89 45
+app/src/app/(customer)/dashboard/active-ticket.tsx
+  s_aa0caf4caad5bc::t_80adf8319cc4c7 1-98
+app/src/components/layout/site-header.tsx
+  s_aa0caf4caad5bc::t_0e7f28d82fe927 45
+  s_aa0caf4caad5bc::t_a1fff6e3b4238f 20
+  s_aa0caf4caad5bc::t_aef0ceaa6022ce 10-14
+app/tests/e2e/customer-journey.spec.ts
+  s_aa0caf4caad5bc::t_312816f281d6f3 80
+  s_aa0caf4caad5bc::t_eda8e821d1c796 108,110
+  s_aa0caf4caad5bc::t_833f5e47086fe0 101
+  s_aa0caf4caad5bc::t_cedb2a5f539044 13
+app/src/app/(customer)/my-queue/live-queue.tsx
+  s_aa0caf4caad5bc::t_d696c7201b474a 72
+app/src/lib/auth/redirects.ts
+  s_aa0caf4caad5bc::t_3274ea7400646f 7
+app/next.config.ts
+  s_aa0caf4caad5bc::t_cb9c1f051628a6 21-22
+app/src/components/layout/bottom-nav.tsx
+  s_aa0caf4caad5bc::t_abd1e0b42f3ecc 5,9
+  s_aa0caf4caad5bc::t_490aa36811deb6 23
+app/src/proxy.ts
+  s_aa0caf4caad5bc::t_0f8b1b8fb05c0e 2
+  s_aa0caf4caad5bc::t_2737454344111b 24-28
+  s_aa0caf4caad5bc::t_4a83d3d55ddf98 51
+app/src/app/(customer)/dashboard/page.tsx
+  s_aa0caf4caad5bc::t_1c3dd87bf007a6 97
+  s_aa0caf4caad5bc::t_d108388a305920 80
+  s_aa0caf4caad5bc::t_d5abc585a7f8bf 190
+  s_aa0caf4caad5bc::t_12e645c25fb47d 1-11,13-79,81-96,98-189,191-198,200-202
+  s_aa0caf4caad5bc::t_bc66e61a124eec 12
+  s_aa0caf4caad5bc::t_387076fc6f8a31 199
+app/src/app/sitemap.ts
+  s_aa0caf4caad5bc::t_ade9843c6565b2 8
+  s_aa0caf4caad5bc::t_113eb284630929 11
+app/src/app/(customer)/dashboard/loading.tsx
+  s_aa0caf4caad5bc::t_263962a0a8b39a 1-30
+.playwright-mcp/console-2026-09-15T13-28-18-982Z.log
+  s_aa0caf4caad5bc::t_37a20ebbbaa30d 1-7
+.playwright-mcp/console-2026-09-15T13-29-00-107Z.log
+  s_aa0caf4caad5bc::t_0d5c9e0f686a9e 1-3
+.playwright-mcp/page-2026-09-15T13-28-19-533Z.yml
+  s_aa0caf4caad5bc::t_1eb64bd7e26215 1-106
+.playwright-mcp/page-2026-09-15T13-29-00-723Z.yml
+  s_aa0caf4caad5bc::t_ed4ed45697955b 1-106
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.4",
+  "base_commit_sha": "0d7abae3dcc37fb4c3b59721a621100773bfcadd",
+  "prompts": {},
+  "humans": {
+    "h_f4310969f9abe9": {
+      "author": "fayiz <fayiz.p@icliniq.com>"
+    }
+  },
+  "sessions": {
+    "s_aa0caf4caad5bc": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7e2a9fbe-a6d4-4dde-a6c8-531d7cae6421",
+        "model": "claude-opus-5"
+      },
+      "human_author": "fayiz <fayiz.p@icliniq.com>"
+    }
+  }
+}
