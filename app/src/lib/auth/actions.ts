@@ -14,6 +14,7 @@ import {
 } from "@/lib/validation/auth";
 import { fieldErrorsOf, parseOrThrow } from "@/lib/validation/parse";
 import { assertProfile } from "./guards";
+import { homeFor, safeRedirectPath } from "./redirects";
 import type { UserRole } from "./session";
 
 async function clientIp(): Promise<string> {
@@ -21,16 +22,9 @@ async function clientIp(): Promise<string> {
   return h.get("x-forwarded-for")?.split(",")[0]?.trim() || h.get("x-real-ip") || "unknown";
 }
 
-function homeFor(role: UserRole | null | undefined): string {
-  if (role === "admin") return "/admin/dashboard";
-  if (role === "shop_owner") return "/shop/dashboard";
-  return "/shops";
-}
-
 /** Only allow same-origin relative redirects. */
 export async function safeNext(next: string | null | undefined, fallback: string): Promise<string> {
-  if (!next || !next.startsWith("/") || next.startsWith("//")) return fallback;
-  return next;
+  return safeRedirectPath(next, fallback);
 }
 
 /** Step 1 of phone auth: send OTP. Creates the account on first use. */

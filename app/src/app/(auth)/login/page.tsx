@@ -1,12 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AuthCard } from "@/components/forms/auth-card";
+import { AuthDivider } from "@/components/forms/auth-divider";
+import { GoogleSignInButton } from "@/components/forms/google-sign-in-button";
+import { Alert } from "@/components/ui/alert";
 import { LoginTabs } from "./login-tabs";
 
 export const metadata: Metadata = { title: "Sign in", robots: { index: false } };
 
-export default async function LoginPage({ searchParams }: { searchParams: Promise<{ next?: string }> }) {
-  const { next } = await searchParams;
+const CALLBACK_ERRORS: Record<string, string> = {
+  oauth: "Google sign-in didn't complete. Please try again.",
+  deactivated: "This account has been deactivated.",
+};
+
+export default async function LoginPage({ searchParams }: { searchParams: Promise<{ next?: string; error?: string }> }) {
+  const { next, error } = await searchParams;
+  const errorMessage = error ? CALLBACK_ERRORS[error] : undefined;
   return (
     <AuthCard
       title="Welcome back"
@@ -20,7 +29,12 @@ export default async function LoginPage({ searchParams }: { searchParams: Promis
         </>
       }
     >
-      <LoginTabs next={next} />
+      <div className="space-y-5">
+        {errorMessage ? <Alert tone="danger">{errorMessage}</Alert> : null}
+        <GoogleSignInButton next={next} />
+        <AuthDivider />
+        <LoginTabs next={next} />
+      </div>
     </AuthCard>
   );
 }

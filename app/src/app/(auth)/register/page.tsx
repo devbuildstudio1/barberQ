@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AuthCard } from "@/components/forms/auth-card";
+import { AuthDivider } from "@/components/forms/auth-divider";
+import { GoogleSignInButton } from "@/components/forms/google-sign-in-button";
 import { PhoneLoginForm } from "@/components/forms/phone-login-form";
 
 export const metadata: Metadata = { title: "Create account", robots: { index: false } };
@@ -24,7 +26,11 @@ export default async function RegisterPage({ searchParams }: { searchParams: Pro
         </>
       }
     >
-      <PhoneLoginForm mode="register" next={next} />
+      <div className="space-y-5">
+        <GoogleSignInButton next={next} label="Sign up with Google" />
+        <AuthDivider />
+        <PhoneLoginForm mode="register" next={next} />
+      </div>
     </AuthCard>
   );
 }
