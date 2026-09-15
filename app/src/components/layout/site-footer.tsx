@@ -5,7 +5,7 @@ const columns = [
   {
     title: "Customers",
     links: [
-      { href: "/shops", label: "Find a barber" },
+      { href: "/dashboard", label: "Find a barber" },
       { href: "/my-queue", label: "Track my queue" },
       { href: "/register", label: "Create account" },
     ],

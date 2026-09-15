@@ -69,7 +69,7 @@ export function LiveQueue({ initial, userId }: Props) {
         title="Your queue is empty."
         description="Join a barber's queue and your live token will appear here."
         action={
-          <Link href="/shops" className={buttonVariants({ size: "lg" })}>
+          <Link href="/dashboard" className={buttonVariants({ size: "lg" })}>
             Find a Barber
           </Link>
         }

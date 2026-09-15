@@ -42,7 +42,7 @@ export default async function MyQueuePage() {
           <div className="mt-3 rounded-lg border border-dashed border-border-strong p-8 text-center">
             <ListOrdered className="mx-auto size-6 text-ink-300" aria-hidden />
             <p className="mt-2 text-sm text-ink-500">No visits yet. Your completed and cancelled tokens will show here.</p>
-            <Link href="/shops" className={`${buttonVariants({ variant: "outline", size: "sm" })} mt-4`}>
+            <Link href="/dashboard" className={`${buttonVariants({ variant: "outline", size: "sm" })} mt-4`}>
               Find a barber
             </Link>
           </div>

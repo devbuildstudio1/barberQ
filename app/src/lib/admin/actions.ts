@@ -26,7 +26,7 @@ export async function setShopStatusAction(input: { shop_id: string; status: Shop
 
     revalidatePath("/admin/shops");
     revalidatePath("/admin/dashboard");
-    revalidatePath("/shops");
+    revalidatePath("/dashboard");
     revalidatePath(`/shops/${shopId}`);
     return ok({ shop: data });
   } catch (err) {

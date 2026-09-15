@@ -1,4 +1,5 @@
 import { NextResponse, type NextRequest } from "next/server";
+import { homeFor } from "@/lib/auth/redirects";
 import { refreshSession } from "@/lib/supabase/proxy";
 
 const CUSTOMER_PROTECTED = ["/my-queue", "/profile", "/notifications"];
@@ -19,6 +20,11 @@ export async function proxy(request: NextRequest) {
     url.search = `?next=${encodeURIComponent(pathname + search)}`;
     return NextResponse.redirect(url);
   };
+
+  // App root: signed-in users land on their dashboard, everyone else signs in
+  if (pathname === "/") {
+    return NextResponse.redirect(new URL(userId ? homeFor(role) : "/login", request.url));
+  }
 
   // Admin area
   if (pathname.startsWith("/admin") && pathname !== "/admin/login") {
@@ -42,8 +48,7 @@ export async function proxy(request: NextRequest) {
 
   // Signed-in users shouldn't see auth pages
   if (userId && (pathname === "/login" || pathname === "/register")) {
-    const dest = role === "admin" ? "/admin/dashboard" : role === "shop_owner" ? "/shop/dashboard" : "/shops";
-    return NextResponse.redirect(new URL(dest, request.url));
+    return NextResponse.redirect(new URL(homeFor(role), request.url));
   }
 
   return response;

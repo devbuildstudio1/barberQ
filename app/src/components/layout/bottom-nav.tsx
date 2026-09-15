@@ -2,12 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Bell, Home, ListOrdered, Search, User } from "lucide-react";
+import { Bell, Home, ListOrdered, User } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const items = [
-  { href: "/", label: "Home", icon: Home, exact: true },
-  { href: "/shops", label: "Find", icon: Search },
+  { href: "/dashboard", label: "Home", icon: Home, exact: true },
   { href: "/my-queue", label: "Queue", icon: ListOrdered },
   { href: "/notifications", label: "Alerts", icon: Bell },
   { href: "/profile", label: "Profile", icon: User },
@@ -21,7 +20,7 @@ export function BottomNav() {
       aria-label="Mobile"
       className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-surface/95 backdrop-blur md:hidden safe-bottom"
     >
-      <ul className="grid grid-cols-5">
+      <ul className="grid grid-cols-4">
         {items.map(({ href, label, icon: Icon, exact }) => {
           const active = exact ? pathname === href : pathname === href || pathname.startsWith(`${href}/`);
           return (

@@ -18,6 +18,8 @@ const nextConfig: NextConfig = {
       ...(supabaseHost ? [{ protocol: supabaseHost === "localhost" || supabaseHost === "127.0.0.1" ? ("http" as const) : ("https" as const), hostname: supabaseHost }] : []),
     ],
   },
+  // The customer home moved from /shops to /dashboard; shop pages stay at /shops/[id].
+  redirects: async () => [{ source: "/shops", destination: "/dashboard", permanent: false }],
   headers: async () => [
     {
       source: "/(.*)",

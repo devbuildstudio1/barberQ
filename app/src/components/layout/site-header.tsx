@@ -5,20 +5,19 @@ import { getCurrentProfile } from "@/lib/auth/profile";
 import { NotificationBell } from "./notification-bell";
 import { HeaderMenu } from "./header-menu";
 
-const NAV = [
-  { href: "/shops", label: "Find a barber" },
-  { href: "/my-queue", label: "My queue" },
-  { href: "/shop/register", label: "For barbers" },
-];
-
 export async function SiteHeader() {
   const profile = await getCurrentProfile();
+  const nav = [
+    { href: "/dashboard", label: profile ? "Dashboard" : "Find a barber" },
+    { href: "/my-queue", label: "My queue" },
+    { href: "/shop/register", label: "For barbers" },
+  ];
   return (
     <header className="sticky top-0 z-40 border-b border-border bg-surface/90 backdrop-blur supports-[backdrop-filter]:bg-surface/75">
       <div className="container-page flex h-16 items-center justify-between gap-4">
         <Logo />
         <nav aria-label="Primary" className="hidden items-center gap-1 md:flex">
-          {NAV.map((item) => (
+          {nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -43,7 +42,7 @@ export async function SiteHeader() {
               <Link href="/login" className="hidden text-sm font-medium text-ink-700 hover:text-ink-950 sm:block">
                 Sign in
               </Link>
-              <Link href="/shops" className={buttonVariants({ size: "sm" })}>
+              <Link href="/dashboard" className={buttonVariants({ size: "sm" })}>
                 Find a Barber
               </Link>
             </>

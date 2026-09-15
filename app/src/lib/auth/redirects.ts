@@ -4,7 +4,7 @@ import type { UserRole } from "./session";
 export function homeFor(role: UserRole | null | undefined): string {
   if (role === "admin") return "/admin/dashboard";
   if (role === "shop_owner") return "/shop/dashboard";
-  return "/shops";
+  return "/dashboard";
 }
 
 /** Only allow same-origin relative redirects. */

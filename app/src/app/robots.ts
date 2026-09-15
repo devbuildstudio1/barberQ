@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: ["/", "/shops"],
+        allow: ["/dashboard", "/shops/"],
         // Personal and operational areas add no value to search results.
         disallow: ["/api/", "/admin", "/shop/", "/my-queue", "/notifications", "/profile", "/login", "/register", "/verify"],
       },

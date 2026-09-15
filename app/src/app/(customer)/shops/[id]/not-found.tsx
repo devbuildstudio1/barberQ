@@ -11,7 +11,7 @@ export default function ShopNotFound() {
         title="Shop not found"
         description="This shop doesn't exist, isn't approved yet, or has been removed."
         action={
-          <Link href="/shops" className={buttonVariants()}>
+          <Link href="/dashboard" className={buttonVariants()}>
             Browse barbers
           </Link>
         }

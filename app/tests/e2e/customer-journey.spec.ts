@@ -10,7 +10,7 @@ test.describe("customer journey", () => {
   });
 
   test("discovers a shop, joins the queue and receives a live token", async ({ page }) => {
-    await page.goto("/shops");
+    await page.goto("/dashboard");
     await expect(page.getByRole("heading", { name: "Find a barber" })).toBeVisible();
 
     await page.locator("input#shops-q").fill(DEMO.shopName);
@@ -77,7 +77,7 @@ test.describe("customer journey", () => {
   });
 
   test("filters and sorts the shop list", async ({ page }) => {
-    await page.goto("/shops");
+    await page.goto("/dashboard");
     await page.getByRole("button", { name: /open now/i }).click();
     await expect(page).toHaveURL(/open=true/);
 
@@ -98,16 +98,16 @@ test.describe("signed-out visitor", () => {
 
   test("can browse shops but is sent to login before joining", async ({ page }) => {
     await page.goto("/shops");
+    await expect(page).toHaveURL(/\/dashboard$/);
     await expect(page.getByRole("heading", { name: "Find a barber" })).toBeVisible();
 
     await page.goto(`/shops/${DEMO.shopId}/join`);
     await expect(page).toHaveURL(/\/login\?next=/);
   });
 
-  test("sees the landing page call to action", async ({ page }) => {
+  test("is sent from the app root to sign in", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("heading", { name: /no more waiting/i })).toBeVisible();
-    await expect(page.getByRole("button", { name: /find a barber/i })).toBeVisible();
+    await expect(page).toHaveURL(/\/login$/);
   });
 
   test("cannot reach the customer queue screen", async ({ page }) => {

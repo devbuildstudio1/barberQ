@@ -5,11 +5,10 @@ const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000";
 
 export const revalidate = 3600;
 
-/** Public pages only: the landing page, discovery, and every approved shop. */
+/** Public pages only: discovery and every approved shop. */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticEntries: MetadataRoute.Sitemap = [
-    { url: appUrl, changeFrequency: "daily", priority: 1 },
-    { url: `${appUrl}/shops`, changeFrequency: "hourly", priority: 0.9 },
+    { url: `${appUrl}/dashboard`, changeFrequency: "hourly", priority: 1 },
     { url: `${appUrl}/shop/register`, changeFrequency: "monthly", priority: 0.5 },
   ];
 

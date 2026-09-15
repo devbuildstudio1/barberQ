@@ -23,7 +23,7 @@ export const NAV = [
 
 /** Deep links into the product app. */
 export const appLink = {
-  findBarber: `${APP_URL}/shops`,
+  findBarber: `${APP_URL}/dashboard`,
   signIn: `${APP_URL}/login`,
   register: `${APP_URL}/register`,
   shopRegister: `${APP_URL}/shop/register`,
