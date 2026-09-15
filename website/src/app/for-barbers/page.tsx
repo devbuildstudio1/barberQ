@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { ArrowRight, Check, Clock, IndianRupee, Store, TrendingUp, Users } from "lucide-react";
 import { Cta, Section, SectionHeading } from "@/components/ui";
 import { appLink } from "@/lib/config";
-import { approx, getPlatformStats } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "For barbers",
@@ -34,9 +33,7 @@ const FAQ = [
   { q: "What about walk-ins who don't use the app?", a: "Add them from the dashboard the same way you'd write a name on a pad. They get a token in the same order." },
 ];
 
-export default async function ForBarbersPage() {
-  const stats = await getPlatformStats();
-
+export default function ForBarbersPage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
@@ -60,12 +57,6 @@ export default async function ForBarbersPage() {
               A live digital queue your customers can join from anywhere, and a dashboard that takes one tap per customer.
               Free to list.
             </p>
-            {stats.live && stats.approvedShops > 0 ? (
-              <p className="mt-3 text-sm text-white/50">
-                {approx(stats.approvedShops)} {stats.approvedShops === 1 ? "shop is" : "shops are"} already running their queue on
-                QueueCut{stats.activeBarbers > 0 ? `, with ${approx(stats.activeBarbers)} barbers` : ""}.
-              </p>
-            ) : null}
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
               <Cta href={appLink.shopRegister} variant="accent" size="lg">
                 List your shop free <ArrowRight />

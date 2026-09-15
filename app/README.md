@@ -35,6 +35,10 @@ tests/
   unit/            pure logic
   integration/     against a real Postgres
   e2e/             Playwright, desktop and mobile
+supabase/
+  migrations/      schema, SECURITY DEFINER functions, RLS, storage and realtime
+  seed.sql         demo accounts and data for local development
+  config.toml      local stack and auth configuration
 ```
 
 ## Rules

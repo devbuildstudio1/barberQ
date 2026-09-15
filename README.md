@@ -4,19 +4,19 @@ Barber queue management platform. Customers find nearby shops, compare live wait
 remotely and track their token in real time. Shop owners run the day's queue from one screen. Admins
 approve shops and monitor activity.
 
-This is a pnpm workspace with two deployable sites and one shared database.
+This is a pnpm workspace with two deployable sites. Only the app has a database.
 
 ```
 .
 ├── app/          Product app — customer queue, shop dashboard, admin console
-├── website/      Marketing site — what QueueCut is, features, pricing, contact
-└── supabase/     Shared database: migrations, seed, local config
+│   └── supabase/ App database: migrations, seed, local config
+└── website/      Marketing site — what QueueCut is, features, pricing, contact
 ```
 
 | Package | Runs on | What it is |
 | --- | --- | --- |
 | `app` | port 3000 | The product. Next.js App Router, Supabase auth, realtime queue, RLS |
-| `website` | port 3001 | Public marketing site. Read-only public data, no auth |
+| `website` | port 3001 | Public marketing site. Fully static, no database, no auth |
 
 They deploy separately: the website at the apex domain, the app at `app.` — the website's calls to
 action deep-link into the app via `NEXT_PUBLIC_APP_URL`.
@@ -38,7 +38,7 @@ pnpm dev:website    # marketing    → http://localhost:3001
 
 ### Demo accounts
 
-Created by `supabase/seed.sql`. Local development only.
+Created by `app/supabase/seed.sql`. Local development only.
 
 | Role | Sign in with | Credentials |
 | --- | --- | --- |
@@ -46,7 +46,7 @@ Created by `supabase/seed.sql`. Local development only.
 | Shop owner | Email at `/shop/login` | `owner1@queuecut.dev` … `owner6@queuecut.dev` / `Password123!` |
 | Admin | Email at `/admin/login` | `admin@queuecut.dev` / `Password123!` |
 
-The fixed OTP codes come from `[auth.sms.test_otp]` in `supabase/config.toml`. Adding a number there
+The fixed OTP codes come from `[auth.sms.test_otp]` in `app/supabase/config.toml`. Adding a number there
 requires restarting the stack (`pnpm db:stop && pnpm db:start`); a database reset alone does not
 reload auth configuration.
 
@@ -76,7 +76,7 @@ Integration and E2E tests need the local stack running with the seed data.
 ## Architecture
 
 ```
-Browser ──► website ──► Supabase (read-only: approved shops, public stats)
+Browser ──► website (static, no database)
        │
        └──► app ──► Supabase Postgres
                      ├─ Row Level Security on every table
@@ -143,11 +143,8 @@ in `estimate_wait_minutes` so it can later use observed durations instead of con
 | --- | --- | --- |
 | `NEXT_PUBLIC_APP_URL` | yes | Where every call to action points |
 | `NEXT_PUBLIC_SITE_URL` | recommended | Canonical marketing URL for metadata and the sitemap |
-| `NEXT_PUBLIC_SUPABASE_URL` | optional | Read-only access to the public shop directory and platform stats |
-| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | optional | Same anon key as the app; RLS limits it to approved shops |
 
-The marketing site degrades gracefully: with Supabase unset or unreachable it still builds and renders,
-falling back to static copy and hiding the live shop strip. A database outage cannot take it down.
+The marketing site has no database connection, so an app or database outage cannot take it down.
 
 ---
 
@@ -158,14 +155,13 @@ Both packages deploy to Cloudflare as separate Workers from the same repository.
 
 **Website** — root directory `website`, a static export (`output: "export"`) served as Workers static
 assets, so it survives an app or database outage. Set `NEXT_PUBLIC_APP_URL` to the app's domain,
-`NEXT_PUBLIC_SITE_URL` to its own, and the two public Supabase variables so the home page shows real
-shops. Supabase is read at build time, so rebuild to refresh the numbers.
+and `NEXT_PUBLIC_SITE_URL` to its own. No Supabase variables are needed.
 
 **App** — root directory `app`, a Worker built by `@opennextjs/cloudflare`. Set the Supabase variables
 and `NEXT_PUBLIC_APP_URL`. All `NEXT_PUBLIC_*` values are inlined at build time, so they belong in the
 build variables, not the runtime ones. Do not set the service role key: the app does not use it.
 
-**Database** — `supabase link` then `supabase db push` from the repository root. Configure a real SMS
+**Database** — `pnpm exec supabase link` then `pnpm exec supabase db push` from the `app/` directory. Configure a real SMS
 provider under `[auth.sms]` and remove the `test_otp` block, which exists only for local development.
 Add the app's production URL to the Supabase Auth redirect allow-list.
 

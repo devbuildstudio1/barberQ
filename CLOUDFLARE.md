@@ -76,19 +76,12 @@ Worker, set the variable, then retry the deployment.
 ```
 NEXT_PUBLIC_APP_URL            https://barberq-app.<subdomain>.workers.dev
 NEXT_PUBLIC_SITE_URL           https://barberq-website.<subdomain>.workers.dev
-NEXT_PUBLIC_SUPABASE_URL       https://<project-ref>.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY  <anon key>
 ```
 
-The site reads Supabase **at build time only**, and only data RLS already makes
-public (approved shops). If the variables are unset it still builds and renders
-fallback copy. `NEXT_PUBLIC_APP_URL` drives every call to action through
+The site is fully static and never talks to Supabase, so it needs no database
+variables. `NEXT_PUBLIC_APP_URL` drives every call to action through
 `appLink` in `website/src/lib/config.ts`, and `NEXT_PUBLIC_SITE_URL` drives
 canonical URLs, the sitemap and `robots.txt`.
-
-Because the site is a static export, the shop counts and platform numbers are
-frozen at build time. Trigger a rebuild to refresh them — a deploy hook on a
-schedule works if you want them current.
 
 ## 3. Point Supabase at the new origins
 

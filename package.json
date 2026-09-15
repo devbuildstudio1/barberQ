@@ -17,14 +17,11 @@
     "test:integration": "pnpm --filter @queuecut/app test:integration",
     "test:e2e": "pnpm --filter @queuecut/app test:e2e",
     "check": "pnpm typecheck && pnpm lint && pnpm test",
-    "db:start": "supabase start",
-    "db:stop": "supabase stop",
-    "db:reset": "supabase db reset",
-    "db:types": "supabase gen types typescript --local --schema public > app/src/types/database.ts",
+    "db:start": "pnpm --filter @queuecut/app db:start",
+    "db:stop": "pnpm --filter @queuecut/app db:stop",
+    "db:reset": "pnpm --filter @queuecut/app db:reset",
+    "db:types": "pnpm --filter @queuecut/app db:types",
     "deploy:app": "pnpm --filter @queuecut/app deploy",
     "deploy:website": "pnpm --filter @queuecut/website deploy"
-  },
-  "devDependencies": {
-    "supabase": "^2.117.0"
   }
 }

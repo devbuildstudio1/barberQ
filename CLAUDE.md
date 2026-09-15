@@ -4,19 +4,20 @@ Read README.md first: it covers the workspace layout, architecture, commands and
 
 ## Workspace
 
-pnpm workspace with two deployable packages and one shared database.
+pnpm workspace with two deployable packages.
 
 - `app/` — the product (customer queue, shop dashboard, admin). Port 3000.
-- `website/` — public marketing site. Read-only public data, no auth. Port 3001.
-- `supabase/` — migrations, seed and local config, shared by both.
+  - `app/supabase/` — migrations, seed and local config for the app's database.
+- `website/` — public marketing site. Fully static, no database, no auth. Port 3001.
 
 All commands run from the repository root; `pnpm dev` starts the app, `pnpm dev:website` the site.
-Database scripts (`db:reset`, `db:types`) live at the root because `supabase/` is shared.
+Database scripts (`db:start`, `db:reset`, `db:types`) are defined in `app/package.json` and proxied
+from the root. Run other Supabase CLI commands from `app/`.
 
 ## Rules that matter here
 
 - **Never mutate `queue_entries` from application code.** Every transition goes through the
-  `SECURITY DEFINER` functions in `supabase/migrations/*_functions.sql`. Clients have no write grants
+  `SECURITY DEFINER` functions in `app/supabase/migrations/*_functions.sql`. Clients have no write grants
   on that table, and the state machine, ownership checks and token allocation live there.
 - **Never add a service-role client to `src/`.** Runtime queries always run as the signed-in user so
   RLS is in force. Privileged work belongs in the Supabase CLI, seeds or test fixtures.
@@ -24,13 +25,11 @@ Database scripts (`db:reset`, `db:types`) live at the root because `supabase/` i
   it is not a security boundary. Any new table needs RLS policies plus explicit grants.
 - **Errors reach users through `AppError`.** Map failures to a code in `src/lib/errors`; raw Postgres
   messages must never surface in the UI.
-- **The marketing site reads, never writes.** It uses the anon key on the server for data RLS already
-  makes public (approved shops, `get_public_stats`), behind `revalidate` so pages stay cacheable.
-  Every query goes through `website/src/lib/data.ts`, which falls back to static copy on failure so a
-  database outage cannot take the site down. Never add auth, sessions or writes there.
+- **The marketing site has no database.** It is a static export with static copy, so it keeps serving
+  if the app or Supabase is down. Never add Supabase, auth, sessions or writes there.
 - Calls to action deep-link into the app through `appLink` in `website/src/lib/config.ts`.
 - After changing the schema, run `pnpm db:reset` then `pnpm db:types`.
-- After changing `supabase/config.toml` auth settings, restart the stack — `db reset` does not reload
+- After changing `app/supabase/config.toml` auth settings, restart the stack — `db reset` does not reload
   auth configuration.
 
 ## Checks before calling something done

@@ -12,9 +12,7 @@ import {
   Users,
 } from "lucide-react";
 import { Cta, FeatureCard, Section, SectionHeading, Stat } from "@/components/ui";
-import { ShopStrip } from "@/components/shop-strip";
 import { BRAND, SITE_URL, appLink } from "@/lib/config";
-import { approx, formatMinutes, getFeaturedShops, getPlatformStats } from "@/lib/data";
 
 const STEPS = [
   { icon: Search, title: "Find a barber", text: "Browse shops near you with live queue counts, wait times and prices." },
@@ -29,11 +27,7 @@ const CUSTOMER_FEATURES = [
   { icon: <Star />, title: "Honest ratings", text: "Reviews come only from customers who actually completed a visit." },
 ];
 
-export default async function HomePage() {
-  // Read at build time: this site is a static export, so it survives an app or
-  // database outage. Rebuild to refresh the numbers.
-  const [stats, shops] = await Promise.all([getPlatformStats(), getFeaturedShops(6)]);
-
+export default function HomePage() {
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
@@ -73,18 +67,11 @@ export default async function HomePage() {
               </Cta>
             </div>
             <dl className="mt-10 grid max-w-md grid-cols-3 gap-6 border-t border-white/10 pt-6">
-              {(stats.live && stats.approvedShops > 0
-                ? [
-                    [approx(stats.approvedShops), stats.approvedShops === 1 ? "shop on QueueCut" : "shops on QueueCut"],
-                    [String(stats.openNow), "open right now"],
-                    [stats.medianWaitMinutes == null ? "No wait" : `~${formatMinutes(stats.medianWaitMinutes)}`, "typical wait"],
-                  ]
-                : [
-                    ["0 min", "spent in a plastic chair"],
-                    ["Live", "queue position"],
-                    ["Free", "for customers"],
-                  ]
-              ).map(([value, label]) => (
+              {[
+                ["0 min", "spent in a plastic chair"],
+                ["Live", "queue position"],
+                ["Free", "for customers"],
+              ].map(([value, label]) => (
                 <div key={label}>
                   <dt className="text-2xl font-bold tracking-tight">{value}</dt>
                   <dd className="mt-0.5 text-xs text-white/60">{label}</dd>
@@ -122,26 +109,8 @@ export default async function HomePage() {
         </ol>
       </Section>
 
-      {/* Real shops */}
-      {shops.length > 0 ? (
-        <Section>
-          <div className="mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-            <SectionHeading
-              eyebrow="Live right now"
-              title="Barbers taking customers today"
-              description="Queue counts and wait times below come straight from the shops' own dashboards."
-              align="left"
-            />
-            <Cta href={appLink.findBarber} variant="outline">
-              See all shops <ArrowRight />
-            </Cta>
-          </div>
-          <ShopStrip shops={shops} />
-        </Section>
-      ) : null}
-
       {/* Customer features */}
-      <Section tone={shops.length > 0 ? "muted" : "default"}>
+      <Section>
         <SectionHeading
           eyebrow="For customers"
           title="Everything you need to skip the wait"
@@ -227,21 +196,10 @@ export default async function HomePage() {
       <Section tone="muted">
         <div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] lg:items-center">
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-2">
-            {stats.live && stats.completedServices > 0 ? (
-              <>
-                <Stat value={approx(stats.completedServices)} label="Haircuts served through the queue" />
-                <Stat value={stats.averageRating > 0 ? `${stats.averageRating.toFixed(1)}★` : "New"} label={`Average rating across ${stats.totalReviews} reviews`} />
-                <Stat value={approx(stats.approvedShops)} label={stats.cities > 1 ? `Shops across ${stats.cities} cities` : "Shops in Chennai"} />
-                <Stat value={approx(stats.activeBarbers)} label="Barbers on the platform" />
-              </>
-            ) : (
-              <>
-                <Stat value="0 min" label="Time spent waiting in a chair" />
-                <Stat value="Live" label="Queue position, updated in seconds" />
-                <Stat value="Free" label="For customers and for shops" />
-                <Stat value="24 hr" label="Shop listings reviewed within" />
-              </>
-            )}
+            <Stat value="0 min" label="Time spent waiting in a chair" />
+            <Stat value="Live" label="Queue position, updated in seconds" />
+            <Stat value="Free" label="For customers and for shops" />
+            <Stat value="24 hr" label="Shop listings reviewed within" />
           </div>
           <figure className="rounded-lg border border-border bg-surface p-8 shadow-card">
             <div className="flex gap-1" aria-label="Rated 5 out of 5">
